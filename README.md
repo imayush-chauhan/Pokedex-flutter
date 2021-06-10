@@ -1,4 +1,4 @@
-# pokidexayu
+# Pokedex Flutter
 
 A new Flutter project.
 

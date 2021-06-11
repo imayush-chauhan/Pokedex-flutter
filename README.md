@@ -6,7 +6,6 @@ Made with Flutter
 
 ![Home](screenshots/Home.jpg "Home")
 ![PokeInfo](screenshots/pokemon.jpg "PokeInfo")
-![PokeInfo2](screenshots/pokemon2.jpg "PokeInfo2")
 
 This project is a starting point for a Flutter application.
 

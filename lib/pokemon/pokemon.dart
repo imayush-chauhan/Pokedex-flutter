@@ -18,10 +18,6 @@ class Pokemon extends StatefulWidget {
 
 class _PokemonState extends State<Pokemon> {
 
-  // var url = "https://raw.githubusercontent.com/imayush-chauhan/PokeInfo/main/PokeData.json";
-  //
-  // PokeHub pokeHub;
-
   String click = "";
   bool onClick = false;
   int num = 3;
@@ -60,32 +56,21 @@ class _PokemonState extends State<Pokemon> {
     await http.get(
         Uri.https(
             "raw.githubusercontent.com",
-            "imayush-chauhan/PokeInfo/main/pokemon.json"));
+            "imayush-chauhan/Pokedex-flutter/main/pokemon.json"));
     setState(() {
       Data.poke = jsonDecode(response.body);
     });
   }
 
   getFav() async{
-    print("hmmmmmmmkmkn");
     SharedPreferences myPrefs = await SharedPreferences.getInstance();
-    print("hmmmmmmm");
     if(myPrefs.getStringList("fav") != null) {
-      print("hooooooo");
       setState(() {
         Data.fav = myPrefs.getStringList("fav") as List<String>;
       });
     }
   }
 
-  // fetchData() async{
-  //   var response = await http.get(url);
-  //   var decode = jsonDecode(response.body);
-  //   setState(() {
-  //     pokeHub = PokeHub.fromJson(decode);
-  //   });
-  //
-  // }
 
   List<dynamic> find(String s){
     List n = [];

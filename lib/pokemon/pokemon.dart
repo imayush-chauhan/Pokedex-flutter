@@ -10,6 +10,7 @@ import 'package:pokidexayu/onlinePoki/pokeData.dart';
 import 'package:pokidexayu/pokemon/favPoke.dart';
 import 'package:pokidexayu/pokemon/infoScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:page_transition/page_transition.dart';
 
 class Pokemon extends StatefulWidget {
   @override
@@ -220,18 +221,21 @@ class _PokemonState extends State<Pokemon> {
                           itemBuilder: (BuildContext  context, int index){
                             return Container(
                               height: 100,
-                              width: double.infinity,
+                              width: MediaQuery.of(context).size.width,
                               child: GestureDetector(
                                 onTap: (){
                                   setState(() {
                                     isCollapsed = false;
                                   });
-                                  Navigator.push(context, MaterialPageRoute(builder: (context){
-                                    return InfoScreen(
-                                      appBar: true,
-                                      inx: index,
-                                    );
-                                  }));
+                                  Navigator.push(context, PageTransition(
+                                      child: InfoScreen(
+                                        appBar: true,
+                                        inx: index,
+                                      ),
+                                      duration: Duration(milliseconds: 400),
+                                      curve: Curves.easeInOut,
+                                      type: PageTransitionType.rightToLeft,
+                                  ));
                                 },
                                 child: Card(
                                   elevation: 8,
@@ -350,16 +354,25 @@ class _PokemonState extends State<Pokemon> {
                               height: 100,
                               width: double.infinity,
                               child: GestureDetector(
+                                onTapDown: (details){
+                                  print(details.localPosition);
+                                },
+                                onTapUp: (details){
+                                  print(details.localPosition);
+                                },
                                 onTap: (){
                                   setState(() {
                                     isCollapsed = false;
                                   });
-                                  Navigator.push(context, MaterialPageRoute(builder: (context){
-                                    return InfoScreen(
-                                      appBar: true,
-                                      inx: int.parse(suggestionList[index]["id"].substring(1)) -1,
-                                    );
-                                  }));
+                                    Navigator.push(context, PageTransition(
+                                      child: InfoScreen(
+                                        appBar: true,
+                                        inx: int.parse(suggestionList[index]["id"].substring(1)) -1,
+                                      ),
+                                      duration: Duration(milliseconds: 400),
+                                      curve: Curves.easeInOut,
+                                      type: PageTransitionType.rightToLeft,
+                                    ));
                                 },
                                 child: Card(
                                   elevation: 8,

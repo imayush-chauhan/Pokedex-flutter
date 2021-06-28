@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:pokidexayu/onlinePoki/pokeData.dart';
 import 'package:pokidexayu/pokemon/infoScreen.dart';
 
@@ -50,12 +51,21 @@ class _FavPokeState extends State<FavPoke> {
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context){
-                    return InfoScreen(
+                  Navigator.push(context, PageTransition(
+                    child: InfoScreen(
                       appBar: true,
                       inx: int.parse(Data.fav[index]) - 1,
-                    );
-                  }));
+                    ),
+                    duration: Duration(milliseconds: 500),
+                    curve: Curves.easeInOut,
+                    type: PageTransitionType.rightToLeft,
+                  ));
+                  // Navigator.push(context, MaterialPageRoute(builder: (context){
+                  //   return InfoScreen(
+                  //     appBar: true,
+                  //     inx: int.parse(Data.fav[index]) - 1,
+                  //   );
+                  // }));
                 },
                 child: Container(
                   decoration: BoxDecoration(

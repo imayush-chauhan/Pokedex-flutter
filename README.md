@@ -6,6 +6,7 @@ https://studioi.web.app
 
 ## App preview
 
+![App](screenshots/Untitled.png "App")
 ![Home](screenshots/Home.jpg "Home")
 ![PokeInfo](screenshots/pokemon.jpg "PokeInfo")
 

@@ -31,6 +31,7 @@ dependencies:
   cached_network_image: ^3.0.0
   http:
   shared_preferences: ^2.0.6
+  page_transition: ^2.0.2
 
 dev_dependencies:
   flutter_test:

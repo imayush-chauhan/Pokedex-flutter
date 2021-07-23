@@ -47,7 +47,6 @@ class _InfoScreenState extends State<InfoScreen> {
   @override
   void initState() {
     super.initState();
-    print(Data.poke["pokemon"][widget.inx]["name"]);
     if(Data.poke["pokemon"][widget.inx]["typeofpokemon"][0] == "Electric"){
       mainColor = Colors.yellowAccent.shade200;
       thickColor = Colors.yellowAccent.shade700;

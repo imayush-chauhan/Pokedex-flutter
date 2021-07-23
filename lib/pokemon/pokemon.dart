@@ -19,11 +19,14 @@ class Pokemon extends StatefulWidget {
 
 class _PokemonState extends State<Pokemon> {
 
+  ScrollController _controller = new ScrollController();
+
   String click = "";
   bool onClick = false;
   int num = 3;
   bool isCollapsed = false;
   int slideNumber = 10;
+  double itemCount = 80;
 
   List<String> names = [
     "All",
@@ -45,8 +48,28 @@ class _PokemonState extends State<Pokemon> {
   @override
   void initState() {
     super.initState();
+    _controller = ScrollController();
+    _controller.addListener(_scrollListener);
     getFav();
     getUsersData();
+  }
+
+  _scrollListener() {
+    if(_controller.offset/100 > 40){
+      setState(() {
+        itemCount = _controller.offset/100 + 50;
+      });
+    }
+
+    // if (_controller.offset >= _controller.position.maxScrollExtent*0.98) {
+    //
+    // }
+    // if (_controller.offset <= _controller.position.minScrollExtent &&
+    //     !_controller.position.outOfRange) {
+    //   setState(() {
+    //     print("reach the top");
+    //   });
+    // }
   }
 
   int inx = 0;
@@ -111,7 +134,7 @@ class _PokemonState extends State<Pokemon> {
             Scaffold(
               backgroundColor: Colors.white,
               appBar: AppBar(
-                title: Text("PokeDex",style: TextStyle(color: Colors.black),),
+                title: Text("Pokedex",style: TextStyle(color: Colors.black),),
                 elevation: 0,
                 centerTitle: true,
                 backgroundColor: Colors.transparent,
@@ -211,13 +234,15 @@ class _PokemonState extends State<Pokemon> {
                     child: Container(
                       color: Colors.white,
                       child: SingleChildScrollView(
+                        controller: _controller,
                         scrollDirection: Axis.vertical,
                         physics: BouncingScrollPhysics(),
                         child: ListView.builder(
                           physics: BouncingScrollPhysics(),
                           scrollDirection: Axis.vertical,
                           shrinkWrap: true,
-                          itemCount: Data.poke["pokemon"].length,
+                          itemCount: itemCount.toInt() < 700 ?
+                          itemCount.toInt() : Data.poke["pokemon"].length,
                           itemBuilder: (BuildContext  context, int index){
                             return Container(
                               height: 100,
@@ -227,15 +252,17 @@ class _PokemonState extends State<Pokemon> {
                                   setState(() {
                                     isCollapsed = false;
                                   });
-                                  Navigator.push(context, PageTransition(
+                                  Future.delayed(Duration(milliseconds: 300),(){
+                                    Navigator.push(context, PageTransition(
                                       child: InfoScreen(
                                         appBar: true,
                                         inx: index,
                                       ),
-                                      duration: Duration(milliseconds: 400),
+                                      duration: Duration(milliseconds: 500),
                                       curve: Curves.easeInOut,
                                       type: PageTransitionType.rightToLeft,
-                                  ));
+                                    ));
+                                  });
                                 },
                                 child: Card(
                                   elevation: 8,
@@ -476,10 +503,10 @@ class _PokemonState extends State<Pokemon> {
 
             AnimatedPositioned(
               duration: Duration(milliseconds: 600),
-              top: isCollapsed == false ? MediaQuery.of(context).size.height*0.6 :
+              top: isCollapsed == false ? MediaQuery.of(context).size.height*0.5 :
               MediaQuery.of(context).size.height*0.1,
               left: isCollapsed == false ? -MediaQuery.of(context).size.width*0.5 : 0,
-              height: MediaQuery.of(context).size.height*0.7,
+              height: isCollapsed == false ? 0 : MediaQuery.of(context).size.height*0.7,
               width: MediaQuery.of(context).size.width*0.5,
               child: GestureDetector(
                 onTap: (){

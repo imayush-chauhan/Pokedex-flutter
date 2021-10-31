@@ -149,11 +149,8 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
   }
 
   getFav() async {
-    print("hmmmmmmmkmkn");
     SharedPreferences myPrefs = await SharedPreferences.getInstance();
-    print("hmmmmmmm");
     if (myPrefs.getStringList("fav") != null) {
-      print("hooooooo");
       setState(() {
         Data.fav = myPrefs.getStringList("fav") as List<String>;
       });
@@ -610,295 +607,6 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
     );
   }
 
-  Widget genName(BuildContext context) {
-    return Container(
-      height: 60,
-      child: ListView.builder(
-        shrinkWrap: true,
-        itemCount: gen["all"].length,
-        physics: BouncingScrollPhysics(),
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (BuildContext context, int index) {
-          return GestureDetector(
-            onTap: () {
-              setState(() {
-                genIndex = index;
-              });
-              // print(gen[gen["all"][index]]["length"]);
-              // if (index == 0) {
-              //   setState(() {
-              //     Data.isGen = false;
-              //     isCollapsed = false;
-              //     iconAnimation();
-              //   });
-              // } else {
-              //   setState(() {
-              //     genIndex = index;
-              //     isCollapsed = false;
-              //     iconAnimation();
-              //   });
-              // }
-            },
-            child: Container(
-              width: 110,
-              child: Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15.0),
-                ),
-                color:
-                Colors.white,
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Center(child: Text(
-                    gen["all"][index],
-                    style: GoogleFonts.roboto(
-                      fontSize: 16,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  )),
-                ),
-              ),
-            ),
-          );
-        },
-      ),
-    );
-  }
-
-  Widget genPokemon(BuildContext context) {
-    return Expanded(
-      flex: 1,
-      child: Container(
-        color: Colors.white,
-        child: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          physics: BouncingScrollPhysics(),
-          child: ListView.builder(
-            physics: NeverScrollableScrollPhysics(),
-            scrollDirection: Axis.vertical,
-            shrinkWrap: true,
-            itemCount: gen[gen["all"][genIndex]]["length"],
-            itemBuilder: (BuildContext context, int index) {
-              // final suggestionList = find(click).toList();
-              // setState(() {
-              //   index = index + int.parse(gen[gen["all"][genIndex]]["from"]);
-              // });
-              return Container(
-                height: 100,
-                width: MediaQuery
-                    .of(context)
-                    .size
-                    .width,
-                child: GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      isCollapsed = false;
-                    });
-                    Future.delayed(Duration(milliseconds: 200), () {
-                      Navigator.push(context, PageTransition(
-                        child: InfoScreen(
-                          appBar: true,
-                          inx: index +
-                              int.parse(gen[gen["all"][genIndex]]["from"]) - 1,
-                        ),
-                        duration: Duration(milliseconds: 400),
-                        curve: Curves.easeInOut,
-                        type: PageTransitionType.rightToLeft,
-                      ));
-                    });
-                  },
-                  child: Card(
-                    elevation: 8,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18.0),
-                    ),
-                    margin: EdgeInsets.only(
-                        left: 15, right: 15, top: 8, bottom: 8),
-                    color:
-                    Data.poke["pokemon"][index +
-                        gen[gen["all"][genIndex]]["from"] -
-                        1]["typeofpokemon"][0] ==
-                        "Electric" ? Colors.yellowAccent :
-                    Data.poke["pokemon"][index +
-                        gen[gen["all"][genIndex]]["from"] -
-                        1]["typeofpokemon"][0] ==
-                        "Fighting" ? Colors.blueGrey.withOpacity(0.8) :
-                    Data.poke["pokemon"][index +
-                        gen[gen["all"][genIndex]]["from"] -
-                        1]["typeofpokemon"][0] == "Grass"
-                        ? Colors.greenAccent
-                        :
-                    Data.poke["pokemon"][index +
-                        gen[gen["all"][genIndex]]["from"] -
-                        1]["typeofpokemon"][0] == "Water"
-                        ? Colors.blueAccent
-                        :
-                    Data.poke["pokemon"][index +
-                        gen[gen["all"][genIndex]]["from"] -
-                        1]["typeofpokemon"][0] == "Poison"
-                        ? Colors.purpleAccent
-                        :
-                    Data.poke["pokemon"][index +
-                        gen[gen["all"][genIndex]]["from"] -
-                        1]["typeofpokemon"][0] == "Rock"
-                        ? Colors.grey
-                        :
-                    Data.poke["pokemon"][index +
-                        gen[gen["all"][genIndex]]["from"] -
-                        1]["typeofpokemon"][0] == "Ghost"
-                        ? Colors.deepPurple[300]
-                        :
-                    Data.poke["pokemon"][index +
-                        gen[gen["all"][genIndex]]["from"] -
-                        1]["typeofpokemon"][0] == "Psychic"
-                        ? Colors.deepPurpleAccent
-                        :
-                    Data.poke["pokemon"][index +
-                        gen[gen["all"][genIndex]]["from"] -
-                        1]["typeofpokemon"][0] == "Fire"
-                        ? Colors.orangeAccent
-                        :
-                    Data.poke["pokemon"][index +
-                        gen[gen["all"][genIndex]]["from"] -
-                        1]["typeofpokemon"][0] == "Ground"
-                        ? Colors.brown.withOpacity(0.8)
-                        :
-                    Data.poke["pokemon"][index +
-                        gen[gen["all"][genIndex]]["from"] -
-                        1]["typeofpokemon"][0] == "Bug"
-                        ? Colors.greenAccent[700]
-                        :
-                    Data.poke["pokemon"][index +
-                        gen[gen["all"][genIndex]]["from"] -
-                        1]["typeofpokemon"][0] == "Dark"
-                        ? Colors.grey
-                        :
-                    Colors.white,
-                    child: Stack(
-                      children: [
-                        Positioned(
-                          //The Faded line in middle of a card
-                          top: MediaQuery
-                              .of(context)
-                              .size
-                              .height * 0.056,
-                          left: MediaQuery
-                              .of(context)
-                              .size
-                              .width * 0.1905,
-                          // right: 91.7,
-                          child: Container(
-                            height: 10,
-                            width: MediaQuery
-                                .of(context)
-                                .size
-                                .width * 0.5,
-                            decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                    begin: Alignment.centerRight,
-                                    end: Alignment.centerLeft,
-                                    stops: [0, 1],
-                                    colors: [
-                                      Colors.black.withOpacity(0.15),
-                                      Colors.transparent,
-                                    ]
-                                )
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          //Background Faded Circle of image
-                          top: MediaQuery
-                              .of(context)
-                              .size
-                              .height * 0.009,
-                          left: MediaQuery
-                              .of(context)
-                              .size
-                              .width * 0.69,
-                          // right: 16,
-                          child: CircleAvatar(
-                            backgroundColor: Colors.black.withOpacity(0.15),
-                            radius: 38,
-                          ),
-                        ),
-                        Positioned(
-                          // image of pokemon
-                          top: MediaQuery
-                              .of(context)
-                              .size
-                              .height * 0.025,
-                          left: MediaQuery
-                              .of(context)
-                              .size
-                              .width * 0.705,
-                          // right: 27,
-                          child: CircleAvatar(
-                            child: CachedNetworkImage(
-                              imageUrl: Data.poke["pokemon"][index +
-                                  gen[gen["all"][genIndex]]["from"] -
-                                  1]["imageurl"],
-                              cacheKey: Data.poke["pokemon"][index +
-                                  gen[gen["all"][genIndex]]["from"] -
-                                  1]["imageurl"],
-                              fit: BoxFit.cover,
-                              errorWidget: (context, url, error) =>
-                                  Icon(Icons.error),
-                            ),
-                            backgroundColor: Colors.black26,
-                            radius: 30,
-                          ),
-                        ),
-                        Positioned(
-                          //name of pokemon
-                          top: MediaQuery
-                              .of(context)
-                              .size
-                              .height * 0.04,
-                          left: 15,
-                          child: Text(Data.poke["pokemon"][index +
-                              gen[gen["all"][genIndex]]["from"] - 1]["name"],
-                            // style: TextStyle(
-                            //   color: Colors.black.withOpacity(0.9),
-                            //   fontSize: 20,
-                            //   fontWeight: FontWeight.w600,
-                            // )
-                            style: GoogleFonts.roboto(
-                              color: Colors.black.withOpacity(0.9),
-                              fontSize: 20,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          //type of pokemon
-                          top: MediaQuery
-                              .of(context)
-                              .size
-                              .height * 0.04,
-                          left: 140,
-                          child: Text(
-                              Data.poke["pokemon"][index +
-                                  gen[gen["all"][genIndex]]["from"] -
-                                  1]["typeofpokemon"][0],
-                              style: GoogleFonts.roboto(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black87
-                              )),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              );
-            },
-          ),
-        ),
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -975,7 +683,7 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
                 ),
               ) : Column(
                 children: [
-
+                  // top slide bar
                   Data.isGen == false ?
                   allPokemonType(context) :
                   genName(context),
@@ -984,7 +692,8 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
                     height: 6,
                   ),
 
-                  genIndex == 0 ?
+                  // bottom pokemon card
+                  Data.isGenPoke == false ?
                   onClick == false ?
                   allPokemon(context) :
                   typePokemon(context) : genPokemon(context),
@@ -1035,6 +744,7 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
                         child: GestureDetector(
                           onTap: () {
                             setState(() {
+                              Data.isGenPoke = false;
                               Data.isGen = false;
                               isCollapsed = false;
                               // click = "";
@@ -1080,6 +790,7 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
                               // onClick = false;
                               Data.isGen = true;
                               isCollapsed = false;
+                              onClick = false;
                               iconAnimation();
                             });
                           },
@@ -1117,9 +828,11 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
                         child: GestureDetector(
                           onTap: () {
                             setState(() {
-                              click = "";
-                              onClick = false;
+                              Data.isGen = true;
+                              genIndex = 1;
                               isCollapsed = false;
+                              onClick = false;
+                              iconAnimation();
                             });
                           },
                           child: Padding(
@@ -1143,9 +856,11 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
                         child: GestureDetector(
                           onTap: () {
                             setState(() {
-                              click = "";
-                              onClick = false;
+                              Data.isGen = true;
+                              genIndex = 2;
                               isCollapsed = false;
+                              onClick = false;
+                              iconAnimation();
                             });
                           },
                           child: Padding(
@@ -1169,9 +884,11 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
                         child: GestureDetector(
                           onTap: () {
                             setState(() {
-                              click = "";
-                              onClick = false;
+                              Data.isGen = true;
+                              genIndex = 3;
                               isCollapsed = false;
+                              onClick = false;
+                              iconAnimation();
                             });
                           },
                           child: Padding(
@@ -1464,6 +1181,301 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
       ),
     );
   }
+
+  Widget genName(BuildContext context) {
+    return Container(
+      height: 60,
+      child: ListView.builder(
+        shrinkWrap: true,
+        itemCount: gen["all"].length,
+        physics: BouncingScrollPhysics(),
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (BuildContext context, int index) {
+          return GestureDetector(
+            onTap: () {
+              if(index == 0){
+                setState(() {
+                  Data.isGenPoke = false;
+                });
+              }else{
+                setState(() {
+                  Data.isGenPoke = true;
+                  genIndex = index;
+                });
+              }
+              // print(gen[gen["all"][index]]["length"]);
+              // if (index == 0) {
+              //   setState(() {
+              //     Data.isGen = false;
+              //     isCollapsed = false;
+              //     iconAnimation();
+              //   });
+              // } else {
+              //   setState(() {
+              //     genIndex = index;
+              //     isCollapsed = false;
+              //     iconAnimation();
+              //   });
+              // }
+            },
+            child: Container(
+              width: 110,
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0),
+                ),
+                color:
+                Colors.white,
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Center(child: Text(
+                    gen["all"][index],
+                    style: GoogleFonts.roboto(
+                      fontSize: 16,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  )),
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget genPokemon(BuildContext context) {
+    return Expanded(
+      flex: 1,
+      child: Container(
+        color: Colors.white,
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          physics: BouncingScrollPhysics(),
+          child: ListView.builder(
+            physics: NeverScrollableScrollPhysics(),
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+            itemCount: gen[gen["all"][genIndex]]["length"],
+            itemBuilder: (BuildContext context, int index) {
+              // final suggestionList = find(click).toList();
+              // setState(() {
+              //   index = index + int.parse(gen[gen["all"][genIndex]]["from"]);
+              // });
+              return Container(
+                height: 100,
+                width: MediaQuery
+                    .of(context)
+                    .size
+                    .width,
+                child: GestureDetector(
+                  onTap: () {
+                    Future.delayed(Duration(milliseconds: 200), () {
+                      Navigator.push(context, PageTransition(
+                        child: InfoScreen(
+                          appBar: true,
+                          inx: index +
+                              int.parse(gen[gen["all"][genIndex]]["from"].toString()) - 1,
+                        ),
+                        duration: Duration(milliseconds: 400),
+                        curve: Curves.easeInOut,
+                        type: PageTransitionType.rightToLeft,
+                      ));
+                    });
+                  },
+                  child: Card(
+                    elevation: 8,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18.0),
+                    ),
+                    margin: EdgeInsets.only(
+                        left: 15, right: 15, top: 8, bottom: 8),
+                    color:
+                    Data.poke["pokemon"][index +
+                        gen[gen["all"][genIndex]]["from"] -
+                        1]["typeofpokemon"][0] ==
+                        "Electric" ? Colors.yellowAccent :
+                    Data.poke["pokemon"][index +
+                        gen[gen["all"][genIndex]]["from"] -
+                        1]["typeofpokemon"][0] ==
+                        "Fighting" ? Colors.blueGrey.withOpacity(0.8) :
+                    Data.poke["pokemon"][index +
+                        gen[gen["all"][genIndex]]["from"] -
+                        1]["typeofpokemon"][0] == "Grass"
+                        ? Colors.greenAccent
+                        :
+                    Data.poke["pokemon"][index +
+                        gen[gen["all"][genIndex]]["from"] -
+                        1]["typeofpokemon"][0] == "Water"
+                        ? Colors.blueAccent
+                        :
+                    Data.poke["pokemon"][index +
+                        gen[gen["all"][genIndex]]["from"] -
+                        1]["typeofpokemon"][0] == "Poison"
+                        ? Colors.purpleAccent
+                        :
+                    Data.poke["pokemon"][index +
+                        gen[gen["all"][genIndex]]["from"] -
+                        1]["typeofpokemon"][0] == "Rock"
+                        ? Colors.grey
+                        :
+                    Data.poke["pokemon"][index +
+                        gen[gen["all"][genIndex]]["from"] -
+                        1]["typeofpokemon"][0] == "Ghost"
+                        ? Colors.deepPurple[300]
+                        :
+                    Data.poke["pokemon"][index +
+                        gen[gen["all"][genIndex]]["from"] -
+                        1]["typeofpokemon"][0] == "Psychic"
+                        ? Colors.deepPurpleAccent
+                        :
+                    Data.poke["pokemon"][index +
+                        gen[gen["all"][genIndex]]["from"] -
+                        1]["typeofpokemon"][0] == "Fire"
+                        ? Colors.orangeAccent
+                        :
+                    Data.poke["pokemon"][index +
+                        gen[gen["all"][genIndex]]["from"] -
+                        1]["typeofpokemon"][0] == "Ground"
+                        ? Colors.brown.withOpacity(0.8)
+                        :
+                    Data.poke["pokemon"][index +
+                        gen[gen["all"][genIndex]]["from"] -
+                        1]["typeofpokemon"][0] == "Bug"
+                        ? Colors.greenAccent[700]
+                        :
+                    Data.poke["pokemon"][index +
+                        gen[gen["all"][genIndex]]["from"] -
+                        1]["typeofpokemon"][0] == "Dark"
+                        ? Colors.grey
+                        :
+                    Colors.white,
+                    child: Stack(
+                      children: [
+                        Positioned(
+                          //The Faded line in middle of a card
+                          top: MediaQuery
+                              .of(context)
+                              .size
+                              .height * 0.056,
+                          left: MediaQuery
+                              .of(context)
+                              .size
+                              .width * 0.1905,
+                          // right: 91.7,
+                          child: Container(
+                            height: 10,
+                            width: MediaQuery
+                                .of(context)
+                                .size
+                                .width * 0.5,
+                            decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                    begin: Alignment.centerRight,
+                                    end: Alignment.centerLeft,
+                                    stops: [0, 1],
+                                    colors: [
+                                      Colors.black.withOpacity(0.15),
+                                      Colors.transparent,
+                                    ]
+                                )
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          //Background Faded Circle of image
+                          top: MediaQuery
+                              .of(context)
+                              .size
+                              .height * 0.009,
+                          left: MediaQuery
+                              .of(context)
+                              .size
+                              .width * 0.69,
+                          // right: 16,
+                          child: CircleAvatar(
+                            backgroundColor: Colors.black.withOpacity(0.15),
+                            radius: 38,
+                          ),
+                        ),
+                        Positioned(
+                          // image of pokemon
+                          top: MediaQuery
+                              .of(context)
+                              .size
+                              .height * 0.025,
+                          left: MediaQuery
+                              .of(context)
+                              .size
+                              .width * 0.705,
+                          // right: 27,
+                          child: CircleAvatar(
+                            child: CachedNetworkImage(
+                              imageUrl: Data.poke["pokemon"][index +
+                                  gen[gen["all"][genIndex]]["from"] -
+                                  1]["imageurl"],
+                              cacheKey: Data.poke["pokemon"][index +
+                                  gen[gen["all"][genIndex]]["from"] -
+                                  1]["imageurl"],
+                              fit: BoxFit.cover,
+                              errorWidget: (context, url, error) =>
+                                  Icon(Icons.error),
+                            ),
+                            backgroundColor: Colors.black26,
+                            radius: 30,
+                          ),
+                        ),
+                        Positioned(
+                          //name of pokemon
+                          top: MediaQuery
+                              .of(context)
+                              .size
+                              .height * 0.04,
+                          left: 15,
+                          child: Text(Data.poke["pokemon"][index +
+                              gen[gen["all"][genIndex]]["from"] - 1]["name"],
+                            // style: TextStyle(
+                            //   color: Colors.black.withOpacity(0.9),
+                            //   fontSize: 20,
+                            //   fontWeight: FontWeight.w600,
+                            // )
+                            style: GoogleFonts.roboto(
+                              color: Colors.black.withOpacity(0.9),
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          //type of pokemon
+                          top: MediaQuery
+                              .of(context)
+                              .size
+                              .height * 0.04,
+                          left: 140,
+                          child: Text(
+                              Data.poke["pokemon"][index +
+                                  gen[gen["all"][genIndex]]["from"] -
+                                  1]["typeofpokemon"][0],
+                              style: GoogleFonts.roboto(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black87
+                              )),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+      ),
+    );
+  }
+
 }
 
 class DataSearch extends SearchDelegate<String> {
@@ -1472,9 +1484,9 @@ class DataSearch extends SearchDelegate<String> {
   DataSearch({required this.file});
 
   // String n;
-  String n = "Loading...";
-  bool yes = false;
-  int inx = 0;
+  // String n = "Loading...";
+  // bool yes = false;
+  // int inx = 0;
 
   final recent = [
     "Pikachu",
@@ -1494,7 +1506,7 @@ class DataSearch extends SearchDelegate<String> {
       icon: Icon(Icons.clear),
       onPressed: () {
         query = "";
-        n = "";
+        Data.n = "";
       },
     )
     ];
@@ -1516,18 +1528,15 @@ class DataSearch extends SearchDelegate<String> {
 
   @override
   Widget buildResults(BuildContext context) {
-    if (yes == false) {
-      query = n;
-    }
     for (int i = 0; i < 809; i++) {
       if (query == file[i]["name"]) {
-        inx = i;
+        Data.inx = i;
         break;
       }
     }
     return InfoScreen(
       appBar: false,
-      inx: inx,
+      inx: Data.inx,
     );
   }
 
@@ -1553,11 +1562,9 @@ class DataSearch extends SearchDelegate<String> {
 
     return ListView.builder(
       itemBuilder: (context, index) {
-        yes = false;
-        n = suggestionList[0];
+        Data.n = suggestionList[0];
         return ListTile(
           onTap: () {
-            yes = true;
             query = suggestionList[index];
             showResults(context);
           },

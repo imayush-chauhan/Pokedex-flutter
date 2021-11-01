@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:page_transition/page_transition.dart';
 import 'package:pokidexayu/onlinePoki/pokeData.dart';
+import 'package:pokidexayu/pokemon/favPoke.dart';
 import 'package:pokidexayu/pokemon/infoScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -20,7 +21,7 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
   AnimationController? controller;
 
 
-  String click = "";
+  String click = "All";
   bool onClick = false;
   bool isGen = false;
   int genIndex = 0;
@@ -207,7 +208,7 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
                     setState(() {
                       isCollapsed = false;
                     });
-                    Future.delayed(Duration(milliseconds: 200), () {
+                    Future.delayed(Duration(milliseconds: 100), () {
                       Navigator.push(context, PageTransition(
                         child: InfoScreen(
                           appBar: true,
@@ -552,6 +553,7 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
               if (index == 0) {
                 setState(() {
                   onClick = false;
+                  click = names[index];
                   isCollapsed = false;
                   iconAnimation();
                 });
@@ -564,42 +566,76 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
                 });
               }
             },
-            child: Container(
-              width: 110,
-              child: Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15.0),
-                ),
-                color:
-                names[index] == "All" ? Colors.white :
-                names[index] == "Electric" ? Colors.yellowAccent :
-                names[index] == "Fighting" ? Colors.blueGrey
-                    .withOpacity(0.8) :
-                names[index] == "Grass" ? Colors.greenAccent :
-                names[index] == "Water" ? Colors.blueAccent :
-                names[index] == "Poison" ? Colors.purpleAccent :
-                names[index] == "Rock" ? Colors.grey :
-                names[index] == "Ghost" ? Colors.deepPurple[300] :
-                names[index] == "Psychic" ? Colors
-                    .deepPurpleAccent :
-                names[index] == "Fire" ? Colors.orangeAccent :
-                names[index] == "Ground" ? Colors.brown
-                    .withOpacity(0.8) :
-                names[index] == "Bug" ? Colors.greenAccent[700] :
-                names[index] == "Dark" ? Colors.grey :
-                Colors.white,
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Center(child: Text(
-                    names[index],
-                    style: GoogleFonts.roboto(
-                      fontSize: 16,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  width: 110,
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
                     ),
-                  )),
+                    color:
+                    names[index] == "All" ? Colors.white :
+                    names[index] == "Electric" ? Colors.yellowAccent :
+                    names[index] == "Fighting" ? Colors.blueGrey
+                        .withOpacity(0.8) :
+                    names[index] == "Grass" ? Colors.greenAccent :
+                    names[index] == "Water" ? Colors.blueAccent :
+                    names[index] == "Poison" ? Colors.purpleAccent :
+                    names[index] == "Rock" ? Colors.grey :
+                    names[index] == "Ghost" ? Colors.deepPurple[300] :
+                    names[index] == "Psychic" ? Colors
+                        .deepPurpleAccent :
+                    names[index] == "Fire" ? Colors.orangeAccent :
+                    names[index] == "Ground" ? Colors.brown
+                        .withOpacity(0.8) :
+                    names[index] == "Bug" ? Colors.greenAccent[700] :
+                    names[index] == "Dark" ? Colors.grey :
+                    Colors.white,
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Center(child: Text(
+                        names[index],
+                        style: GoogleFonts.roboto(
+                          fontSize: 16,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )),
+                    ),
+                  ),
                 ),
-              ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 2,left: 10,right: 10),
+                  child: Container(
+                    height: 4,
+                    width: 85,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(2),
+                      color: click == names[index] ?
+                      click == "All" ? Colors.black.withOpacity(0.2) :
+                      click == "Electric" ? Colors.yellowAccent :
+                      click == "Fighting" ? Colors.blueGrey
+                          .withOpacity(0.8) :
+                      click == "Grass" ? Colors.greenAccent :
+                      click == "Water" ? Colors.blueAccent :
+                      click == "Poison" ? Colors.purpleAccent :
+                      click == "Rock" ? Colors.grey :
+                      click == "Ghost" ? Colors.deepPurple[300] :
+                      click == "Psychic" ? Colors
+                          .deepPurpleAccent :
+                      click == "Fire" ? Colors.orangeAccent :
+                      click == "Ground" ? Colors.brown
+                          .withOpacity(0.8) :
+                      click == "Bug" ? Colors.greenAccent[700] :
+                      click == "Dark" ? Colors.grey :
+                      Colors.white : Colors.white
+                    ),
+                  ),
+                ),
+              ],
             ),
           );
         },
@@ -747,8 +783,7 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
                               Data.isGenPoke = false;
                               Data.isGen = false;
                               isCollapsed = false;
-                              // click = "";
-                              // onClick = false;
+                              click = "All";
                               iconAnimation();
                             });
                           },
@@ -786,9 +821,8 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
                         child: GestureDetector(
                           onTap: () {
                             setState(() {
-                              // click = "";
-                              // onClick = false;
                               Data.isGen = true;
+                              genIndex = 0;
                               isCollapsed = false;
                               onClick = false;
                               iconAnimation();
@@ -818,90 +852,90 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
                           ),
                         ),
                       ),
-                      Container(
-                        height: 35,
-                        width: MediaQuery
-                            .of(context)
-                            .size
-                            .width * 0.6,
-                        alignment: Alignment.centerLeft,
-                        child: GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              Data.isGen = true;
-                              genIndex = 1;
-                              isCollapsed = false;
-                              onClick = false;
-                              iconAnimation();
-                            });
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 55),
-                            child: Text("Gen 1",
-                                style: GoogleFonts.roboto(
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.black.withOpacity(0.9),
-                                )),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        height: 35,
-                        width: MediaQuery
-                            .of(context)
-                            .size
-                            .width * 0.6,
-                        alignment: Alignment.centerLeft,
-                        child: GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              Data.isGen = true;
-                              genIndex = 2;
-                              isCollapsed = false;
-                              onClick = false;
-                              iconAnimation();
-                            });
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 55),
-                            child: Text("Gen 2",
-                                style: GoogleFonts.roboto(
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.black.withOpacity(0.9),
-                                )),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        height: 35,
-                        width: MediaQuery
-                            .of(context)
-                            .size
-                            .width * 0.6,
-                        alignment: Alignment.centerLeft,
-                        child: GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              Data.isGen = true;
-                              genIndex = 3;
-                              isCollapsed = false;
-                              onClick = false;
-                              iconAnimation();
-                            });
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 55),
-                            child: Text("Gen 3",
-                                style: GoogleFonts.roboto(
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.black.withOpacity(0.9),
-                                )),
-                          ),
-                        ),
-                      ),
+                      // Container(
+                      //   height: 35,
+                      //   width: MediaQuery
+                      //       .of(context)
+                      //       .size
+                      //       .width * 0.6,
+                      //   alignment: Alignment.centerLeft,
+                      //   child: GestureDetector(
+                      //     onTap: () {
+                      //       setState(() {
+                      //         Data.isGen = true;
+                      //         genIndex = 1;
+                      //         isCollapsed = false;
+                      //         onClick = false;
+                      //         iconAnimation();
+                      //       });
+                      //     },
+                      //     child: Padding(
+                      //       padding: const EdgeInsets.only(left: 55),
+                      //       child: Text("Gen 1",
+                      //           style: GoogleFonts.roboto(
+                      //             fontSize: 17,
+                      //             fontWeight: FontWeight.w600,
+                      //             color: Colors.black.withOpacity(0.9),
+                      //           )),
+                      //     ),
+                      //   ),
+                      // ),
+                      // Container(
+                      //   height: 35,
+                      //   width: MediaQuery
+                      //       .of(context)
+                      //       .size
+                      //       .width * 0.6,
+                      //   alignment: Alignment.centerLeft,
+                      //   child: GestureDetector(
+                      //     onTap: () {
+                      //       setState(() {
+                      //         Data.isGen = true;
+                      //         genIndex = 2;
+                      //         isCollapsed = false;
+                      //         onClick = false;
+                      //         iconAnimation();
+                      //       });
+                      //     },
+                      //     child: Padding(
+                      //       padding: const EdgeInsets.only(left: 55),
+                      //       child: Text("Gen 2",
+                      //           style: GoogleFonts.roboto(
+                      //             fontSize: 17,
+                      //             fontWeight: FontWeight.w600,
+                      //             color: Colors.black.withOpacity(0.9),
+                      //           )),
+                      //     ),
+                      //   ),
+                      // ),
+                      // Container(
+                      //   height: 35,
+                      //   width: MediaQuery
+                      //       .of(context)
+                      //       .size
+                      //       .width * 0.6,
+                      //   alignment: Alignment.centerLeft,
+                      //   child: GestureDetector(
+                      //     onTap: () {
+                      //       setState(() {
+                      //         Data.isGen = true;
+                      //         genIndex = 3;
+                      //         isCollapsed = false;
+                      //         onClick = false;
+                      //         iconAnimation();
+                      //       });
+                      //     },
+                      //     child: Padding(
+                      //       padding: const EdgeInsets.only(left: 55),
+                      //       child: Text("Gen 3",
+                      //           style: GoogleFonts.roboto(
+                      //             fontSize: 17,
+                      //             fontWeight: FontWeight.w600,
+                      //             color: Colors.black.withOpacity(0.9),
+                      //           )),
+                      //     ),
+                      //   ),
+                      // ),
                       Container(
                         height: 55,
                         width: MediaQuery
@@ -912,9 +946,11 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
                         child: GestureDetector(
                           onTap: () {
                             setState(() {
-                              click = "";
-                              onClick = false;
                               isCollapsed = false;
+                              iconAnimation();
+                              Navigator.push(context, MaterialPageRoute(builder: (context){
+                                return FavPoke();
+                              }));
                             });
                           },
                           child: Row(
@@ -1173,9 +1209,6 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
                 ),
               ),
             ),
-            // AnimatedContainer(
-            //  
-            // ),
           ],
         ),
       ),
@@ -1196,6 +1229,7 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
               if(index == 0){
                 setState(() {
                   Data.isGenPoke = false;
+                  genIndex = index;
                 });
               }else{
                 setState(() {
@@ -1218,26 +1252,45 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
               //   });
               // }
             },
-            child: Container(
-              width: 110,
-              child: Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15.0),
-                ),
-                color:
-                Colors.white,
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Center(child: Text(
-                    gen["all"][index],
-                    style: GoogleFonts.roboto(
-                      fontSize: 16,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  width: 110,
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
                     ),
-                  )),
+                    color:
+                    Colors.white,
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Center(child: Text(
+                        gen["all"][index],
+                        style: GoogleFonts.roboto(
+                          fontSize: 16,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )),
+                    ),
+                  ),
                 ),
-              ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 2,left: 10,right: 10),
+                  child: Container(
+                    height: 4,
+                    width: 85,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(2),
+                        color: genIndex == index ?
+                        Colors.black.withOpacity(0.2) :
+                        Colors.white,
+                    ),
+                  ),
+                ),
+              ],
             ),
           );
         },

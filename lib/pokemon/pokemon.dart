@@ -616,6 +616,7 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
                       borderRadius: BorderRadius.circular(2),
                       color: click == names[index] ?
                       click == "All" ? Colors.black.withOpacity(0.2) :
+                      click == "Normal" ? Colors.black.withOpacity(0.2) :
                       click == "Electric" ? Colors.yellowAccent :
                       click == "Fighting" ? Colors.blueGrey
                           .withOpacity(0.8) :

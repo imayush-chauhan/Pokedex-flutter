@@ -1,8 +1,14 @@
-# pokidexayu
+# Pokedex Flutter
 
-A new Flutter project.
+Made with Flutter
 
-## Getting Started
+https://studioi.web.app
+
+## App preview
+
+![App](screenshots/Untitled.png "App")
+![Home](screenshots/Home.jpg "Home")
+![PokeInfo](screenshots/pokemon.jpg "PokeInfo")
 
 This project is a starting point for a Flutter application.
 

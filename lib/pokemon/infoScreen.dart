@@ -1157,7 +1157,10 @@ class _InfoScreenState extends State<InfoScreen> {
                   ),
                   child: Padding(
                     padding: EdgeInsets.only(top: 15),
-                    child: typePokemon(context),
+                    child:
+                    isType == false ?
+                    Text("") :
+                    typePokemon(context),
                   ),
                 ),
               ),

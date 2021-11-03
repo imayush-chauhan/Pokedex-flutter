@@ -10,3 +10,5 @@ class Data {
   static int inx = 0;
 
 }
+
+

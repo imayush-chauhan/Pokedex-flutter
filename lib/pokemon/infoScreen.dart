@@ -1738,7 +1738,7 @@ class _InfoScreenState extends State<InfoScreen> {
                 borderRadius: BorderRadius.circular(18.0),
               ),
               margin: EdgeInsets.only(
-                  left: 15, right: 15, top: index != 0 ? 8 : 0, bottom: 8),
+                  left: 15, right: 15, top: 8, bottom: 8),
               color:
               click == "Electric" ? Colors.yellowAccent :
               click == "Fighting" ? Colors.blueGrey.withOpacity(0.8) :

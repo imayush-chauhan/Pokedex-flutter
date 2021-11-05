@@ -1702,148 +1702,152 @@ class _InfoScreenState extends State<InfoScreen> {
   }
 
   typePokemon(BuildContext context) {
-    return ListView.builder(
-      physics: NeverScrollableScrollPhysics(),
-      scrollDirection: Axis.vertical,
-      shrinkWrap: true,
-      itemCount: find(click).isEmpty ? 10 : find(click).length,
-      itemBuilder: (BuildContext context, int index) {
-        final suggestionList = find(click).toList();
-        return Container(
-          height: 100,
-          width: double.infinity,
-          color: Colors.transparent,
-          child: GestureDetector(
-            // onTapDown: (details) {
-            //   print(details.localPosition);
-            // },
-            // onTapUp: (details) {
-            //   print(details.localPosition);
-            // },
-            onTap: () {
-              Navigator.push(context, PageTransition(
-                child: InfoScreen(
-                  appBar: true,
-                  inx: int.parse(
-                      suggestionList[index]["id"].substring(1)) - 1,
+    return Padding(
+      padding: const EdgeInsets.only(top: 5),
+      child: ListView.builder(
+        padding: const EdgeInsets.all(0),
+        physics: NeverScrollableScrollPhysics(),
+        scrollDirection: Axis.vertical,
+        shrinkWrap: true,
+        itemCount: find(click).isEmpty ? 10 : find(click).length,
+        itemBuilder: (BuildContext context, int index) {
+          final suggestionList = find(click).toList();
+          return Container(
+            height: 100,
+            width: double.infinity,
+            color: Colors.transparent,
+            child: GestureDetector(
+              // onTapDown: (details) {
+              //   print(details.localPosition);
+              // },
+              // onTapUp: (details) {
+              //   print(details.localPosition);
+              // },
+              onTap: () {
+                Navigator.push(context, PageTransition(
+                  child: InfoScreen(
+                    appBar: true,
+                    inx: int.parse(
+                        suggestionList[index]["id"].substring(1)) - 1,
+                  ),
+                  duration: Duration(milliseconds: 400),
+                  curve: Curves.easeInOut,
+                  type: PageTransitionType.rightToLeft,
+                ));
+              },
+              child: Card(
+                elevation: 8,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18.0),
                 ),
-                duration: Duration(milliseconds: 400),
-                curve: Curves.easeInOut,
-                type: PageTransitionType.rightToLeft,
-              ));
-            },
-            child: Card(
-              elevation: 8,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(18.0),
-              ),
-              margin: EdgeInsets.only(
-                  left: 15, right: 15, top: 8, bottom: 8),
-              color:
-              click == "Electric" ? Colors.yellowAccent :
-              click == "Fighting" ? Colors.blueGrey.withOpacity(0.8) :
-              click == "Grass" ? Colors.greenAccent :
-              click == "Water" ? Colors.blueAccent :
-              click == "Poison" ? Colors.purpleAccent :
-              click == "Rock" ? Colors.grey :
-              click == "Ghost" ? Colors.deepPurple[300] :
-              click == "Psychic" ? Colors.deepPurpleAccent :
-              click == "Fire" ? Colors.orangeAccent :
-              click == "Ground" ? Colors.brown.withOpacity(0.8) :
-              click == "Bug" ? Colors.greenAccent[700] :
-              click == "Dark" ? Colors.grey :
-              Colors.white,
-              child: Stack(
-                children: [
-                  Positioned(
-                    //The Faded line in middle of a card
-                    top: MediaQuery
-                        .of(context)
-                        .size
-                        .height * 0.056,
-                    right: 91.7,
-                    child: Container(
-                      height: 10,
-                      width: MediaQuery
+                margin: EdgeInsets.only(
+                    left: 15, right: 15, top: 8, bottom: 8),
+                color:
+                click == "Electric" ? Colors.yellowAccent :
+                click == "Fighting" ? Colors.blueGrey.withOpacity(0.8) :
+                click == "Grass" ? Colors.greenAccent :
+                click == "Water" ? Colors.blueAccent :
+                click == "Poison" ? Colors.purpleAccent :
+                click == "Rock" ? Colors.grey :
+                click == "Ghost" ? Colors.deepPurple[300] :
+                click == "Psychic" ? Colors.deepPurpleAccent :
+                click == "Fire" ? Colors.orangeAccent :
+                click == "Ground" ? Colors.brown.withOpacity(0.8) :
+                click == "Bug" ? Colors.greenAccent[700] :
+                click == "Dark" ? Colors.grey :
+                Colors.white,
+                child: Stack(
+                  children: [
+                    Positioned(
+                      //The Faded line in middle of a card
+                      top: MediaQuery
                           .of(context)
                           .size
-                          .width * 0.5,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                            begin: Alignment.centerRight,
-                            end: Alignment.centerLeft,
-                            stops: [0, 1],
-                            colors: [
-                              Colors.black.withOpacity(0.15),
-                              Colors.transparent,
-                            ]
+                          .height * 0.056,
+                      right: 91.7,
+                      child: Container(
+                        height: 10,
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width * 0.5,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                              begin: Alignment.centerRight,
+                              end: Alignment.centerLeft,
+                              stops: [0, 1],
+                              colors: [
+                                Colors.black.withOpacity(0.15),
+                                Colors.transparent,
+                              ]
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  Positioned(
-                    //Background Faded Circle of image
-                    top: MediaQuery
-                        .of(context)
-                        .size
-                        .height * 0.009,
-                    right: 16,
-                    child: CircleAvatar(
-                      backgroundColor: Colors.black.withOpacity(0.15),
-                      radius: 38,
-                    ),
-                  ),
-                  Positioned(
-                    // image of pokemon
-                    top: MediaQuery
-                        .of(context)
-                        .size
-                        .height * 0.025,
-                    right: 27,
-                    child: CircleAvatar(
-                      child: CachedNetworkImage(
-                        imageUrl: suggestionList[index]["imageurl"],
-                        fit: BoxFit.cover,
-                        errorWidget: (context, url, error) =>
-                            Icon(Icons.error),
+                    Positioned(
+                      //Background Faded Circle of image
+                      top: MediaQuery
+                          .of(context)
+                          .size
+                          .height * 0.009,
+                      right: 16,
+                      child: CircleAvatar(
+                        backgroundColor: Colors.black.withOpacity(0.15),
+                        radius: 38,
                       ),
-                      backgroundColor: Colors.black26,
-                      radius: 30,
                     ),
-                  ),
-                  Positioned(
-                    //name of pokemon
-                    top: MediaQuery
-                        .of(context)
-                        .size
-                        .height * 0.04,
-                    left: 15,
-                    child: Text(suggestionList[index]["name"],
-                        style: GoogleFonts.roboto(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        )),
-                  ),
-                  Positioned(
-                    //type of pokemon
-                    top: MediaQuery
-                        .of(context)
-                        .size
-                        .height * 0.04,
-                    left: 140,
-                    child: Text(suggestionList[index]["typeofpokemon"][0],
-                        style: GoogleFonts.roboto(
-                            fontSize: 18,
+                    Positioned(
+                      // image of pokemon
+                      top: MediaQuery
+                          .of(context)
+                          .size
+                          .height * 0.025,
+                      right: 27,
+                      child: CircleAvatar(
+                        child: CachedNetworkImage(
+                          imageUrl: suggestionList[index]["imageurl"],
+                          fit: BoxFit.cover,
+                          errorWidget: (context, url, error) =>
+                              Icon(Icons.error),
+                        ),
+                        backgroundColor: Colors.black26,
+                        radius: 30,
+                      ),
+                    ),
+                    Positioned(
+                      //name of pokemon
+                      top: MediaQuery
+                          .of(context)
+                          .size
+                          .height * 0.04,
+                      left: 15,
+                      child: Text(suggestionList[index]["name"],
+                          style: GoogleFonts.roboto(
+                            fontSize: 20,
                             fontWeight: FontWeight.bold,
-                            color: Colors.black87
-                        )),
-                  ),
-                ],
+                          )),
+                    ),
+                    Positioned(
+                      //type of pokemon
+                      top: MediaQuery
+                          .of(context)
+                          .size
+                          .height * 0.04,
+                      left: 140,
+                      child: Text(suggestionList[index]["typeofpokemon"][0],
+                          style: GoogleFonts.roboto(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black87
+                          )),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 

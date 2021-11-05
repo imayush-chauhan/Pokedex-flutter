@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
@@ -101,13 +103,40 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
     _controller = ScrollController();
     _controller.addListener(_scrollListener);
     getFav();
-    getUsersData();
+    getData();
     controller = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 600),
     );
   }
+  
+  final fireStore = Firebase.initializeApp();
+  String url = "";
+  
+  getData() {
+    fireStore.then((value) async {
+      FirebaseFirestore.instance
+          .collection("data")
+          .doc("1")
+          .get()
+          .then((value) {
+        setState(() {
+          url = value.get("url");
+        });
+      }).whenComplete(() {
+        getUsersData();
+      });
+    });
+  }
 
+  getUsersData() async {
+    var response =
+    await http.get(
+        Uri.parse(url));
+    setState(() {
+      Data.poke = jsonDecode(response.body);
+    });
+  }
 
   iconAnimation() {
     if (isCollapsed == false) {
@@ -137,17 +166,6 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
 
   int inx = 0;
   bool once = false;
-
-  getUsersData() async {
-    var response =
-    await http.get(
-        Uri.https(
-            "raw.githubusercontent.com",
-            "imayush-chauhan/PokeInfo/main/pokemon.json"));
-    setState(() {
-      Data.poke = jsonDecode(response.body);
-    });
-  }
 
   getFav() async {
     SharedPreferences myPrefs = await SharedPreferences.getInstance();

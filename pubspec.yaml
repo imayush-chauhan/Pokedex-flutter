@@ -32,6 +32,7 @@ dependencies:
   cloud_firestore:
   firebase_storage:
   cached_network_image: ^3.0.0
+  url_launcher:
   http:
   shared_preferences: ^2.0.6
   page_transition: ^2.0.2

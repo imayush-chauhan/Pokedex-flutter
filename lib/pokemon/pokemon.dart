@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:page_transition/page_transition.dart';
 import 'package:pokidexayu/onlinePoki/pokeData.dart';
 import 'package:pokidexayu/pokemon/favPoke.dart';
+import 'package:pokidexayu/pokemon/help.dart';
 import 'package:pokidexayu/pokemon/infoScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -226,7 +227,7 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
                     setState(() {
                       isCollapsed = false;
                     });
-                    Future.delayed(Duration(milliseconds: 100), () {
+                    Future.delayed(Duration(milliseconds: 150), () {
                       Navigator.push(context, PageTransition(
                         child: InfoScreen(
                           appBar: true,
@@ -418,26 +419,28 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
                 height: 100,
                 width: double.infinity,
                 child: GestureDetector(
-                  onTapDown: (details) {
-                    print(details.localPosition);
-                  },
-                  onTapUp: (details) {
-                    print(details.localPosition);
-                  },
+                  // onTapDown: (details) {
+                  //   print(details.localPosition);
+                  // },
+                  // onTapUp: (details) {
+                  //   print(details.localPosition);
+                  // },
                   onTap: () {
                     setState(() {
                       isCollapsed = false;
                     });
-                    Navigator.push(context, PageTransition(
-                      child: InfoScreen(
-                        appBar: true,
-                        inx: int.parse(
-                            suggestionList[index]["id"].substring(1)) - 1,
-                      ),
-                      duration: Duration(milliseconds: 400),
-                      curve: Curves.easeInOut,
-                      type: PageTransitionType.rightToLeft,
-                    ));
+                    Future.delayed(Duration(milliseconds: 100), () {
+                      Navigator.push(context, PageTransition(
+                        child: InfoScreen(
+                          appBar: true,
+                          inx: int.parse(
+                              suggestionList[index]["id"].substring(1)) - 1,
+                        ),
+                        duration: Duration(milliseconds: 400),
+                        curve: Curves.easeInOut,
+                        type: PageTransitionType.rightToLeft,
+                      ));
+                    });
                   },
                   child: Card(
                     elevation: 8,
@@ -689,7 +692,11 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
               backgroundColor: Colors.white,
               appBar: AppBar(
                 title: Text(
-                  "Pokedex", style: GoogleFonts.roboto(color: Colors.black),),
+                  "Pokedex",
+                  style: GoogleFonts.roboto(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w500,
+                  ),),
                 elevation: 0,
                 centerTitle: true,
                 backgroundColor: Colors.transparent,
@@ -710,7 +717,8 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
                     });
                   },
                   child: Container(
-                    alignment: Alignment.centerRight,
+                    color: Colors.white,
+                    alignment: Alignment.center,
                     child: AnimatedIcon(
                       icon: AnimatedIcons.menu_close,
                       progress: controller!,
@@ -871,90 +879,6 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
                           ),
                         ),
                       ),
-                      // Container(
-                      //   height: 35,
-                      //   width: MediaQuery
-                      //       .of(context)
-                      //       .size
-                      //       .width * 0.6,
-                      //   alignment: Alignment.centerLeft,
-                      //   child: GestureDetector(
-                      //     onTap: () {
-                      //       setState(() {
-                      //         Data.isGen = true;
-                      //         genIndex = 1;
-                      //         isCollapsed = false;
-                      //         onClick = false;
-                      //         iconAnimation();
-                      //       });
-                      //     },
-                      //     child: Padding(
-                      //       padding: const EdgeInsets.only(left: 55),
-                      //       child: Text("Gen 1",
-                      //           style: GoogleFonts.roboto(
-                      //             fontSize: 17,
-                      //             fontWeight: FontWeight.w600,
-                      //             color: Colors.black.withOpacity(0.9),
-                      //           )),
-                      //     ),
-                      //   ),
-                      // ),
-                      // Container(
-                      //   height: 35,
-                      //   width: MediaQuery
-                      //       .of(context)
-                      //       .size
-                      //       .width * 0.6,
-                      //   alignment: Alignment.centerLeft,
-                      //   child: GestureDetector(
-                      //     onTap: () {
-                      //       setState(() {
-                      //         Data.isGen = true;
-                      //         genIndex = 2;
-                      //         isCollapsed = false;
-                      //         onClick = false;
-                      //         iconAnimation();
-                      //       });
-                      //     },
-                      //     child: Padding(
-                      //       padding: const EdgeInsets.only(left: 55),
-                      //       child: Text("Gen 2",
-                      //           style: GoogleFonts.roboto(
-                      //             fontSize: 17,
-                      //             fontWeight: FontWeight.w600,
-                      //             color: Colors.black.withOpacity(0.9),
-                      //           )),
-                      //     ),
-                      //   ),
-                      // ),
-                      // Container(
-                      //   height: 35,
-                      //   width: MediaQuery
-                      //       .of(context)
-                      //       .size
-                      //       .width * 0.6,
-                      //   alignment: Alignment.centerLeft,
-                      //   child: GestureDetector(
-                      //     onTap: () {
-                      //       setState(() {
-                      //         Data.isGen = true;
-                      //         genIndex = 3;
-                      //         isCollapsed = false;
-                      //         onClick = false;
-                      //         iconAnimation();
-                      //       });
-                      //     },
-                      //     child: Padding(
-                      //       padding: const EdgeInsets.only(left: 55),
-                      //       child: Text("Gen 3",
-                      //           style: GoogleFonts.roboto(
-                      //             fontSize: 17,
-                      //             fontWeight: FontWeight.w600,
-                      //             color: Colors.black.withOpacity(0.9),
-                      //           )),
-                      //     ),
-                      //   ),
-                      // ),
                       Container(
                         height: 55,
                         width: MediaQuery
@@ -996,235 +920,50 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
                           ),
                         ),
                       ),
+                      Container(
+                        height: 55,
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width * 0.6,
+                        alignment: Alignment.centerLeft,
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              isCollapsed = false;
+                              iconAnimation();
+                              Navigator.push(context, MaterialPageRoute(builder: (context){
+                                return Help();
+                              }));
+                            });
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(left: 20),
+                                child: Icon(Icons.help_outline),
+                                // child: Icon(Icons.hel,
+                                //   color: Colors.black.withOpacity(0.9),
+                                //   size: 20,
+                                // ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 15),
+                                child: Text("Help",
+                                    style: GoogleFonts.roboto(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.black.withOpacity(0.9),
+                                    )),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                     ],
                   ),
-                  // child: Stack(
-                  //   children: [
-                  //     Positioned(
-                  //       top: 0,
-                  //       child: Container(
-                  //         height: 80,
-                  //         width: MediaQuery.of(context).size.width*0.5,
-                  //         child: Card(
-                  //           margin: EdgeInsets.all(0),
-                  //           shape: RoundedRectangleBorder(
-                  //             borderRadius: BorderRadius.only(topLeft: Radius.circular(18),topRight: Radius.circular(18)),
-                  //           ),
-                  //           color: Colors.white,
-                  //           child: Center(
-                  //             child: Text(
-                  //               "PokeDex",
-                  //               style: TextStyle(
-                  //                 fontSize: 25,
-                  //                 fontWeight: FontWeight.bold,
-                  //                 color: Colors.black,
-                  //               ),
-                  //             ),
-                  //           ),
-                  //         ),
-                  //       ),
-                  //     ),
-                  //     Positioned(
-                  //       top: 100,
-                  //       child: GestureDetector(
-                  //         onTap: (){
-                  //           setState(() {
-                  //             click = "";
-                  //             onClick = false;
-                  //             isCollapsed = false;
-                  //           });
-                  //         },
-                  //         child: Row(
-                  //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  //           crossAxisAlignment: CrossAxisAlignment.center,
-                  //           children: [
-                  //             Padding(
-                  //               padding: const EdgeInsets.only(left: 15),
-                  //               child: Icon(Icons.favorite,
-                  //                 size: 22,
-                  //               ),
-                  //             ),
-                  //             Padding(
-                  //               padding: const EdgeInsets.only(left: 15),
-                  //               child: Text("All Pokemon",
-                  //                   style: TextStyle(
-                  //                     fontSize: 21,
-                  //                     fontWeight: FontWeight.bold,
-                  //                     color: Colors.black,
-                  //                   )),
-                  //             ),
-                  //           ],
-                  //         ),
-                  //       ),
-                  //     ),
-                  //     Positioned(
-                  //       top: 150,
-                  //       child: GestureDetector(
-                  //         onTap: (){
-                  //           setState(() {
-                  //             click = "Fire";
-                  //             onClick = true;
-                  //             isCollapsed = false;
-                  //           });
-                  //         },
-                  //         child: Row(
-                  //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  //           crossAxisAlignment: CrossAxisAlignment.center,
-                  //           children: [
-                  //             Padding(
-                  //               padding: const EdgeInsets.only(left: 15),
-                  //               child: Icon(Icons.whatshot,
-                  //                 size: 22,
-                  //               ),
-                  //             ),
-                  //             Padding(
-                  //               padding: const EdgeInsets.only(left: 15),
-                  //               child: Text("Fire",
-                  //                   style: TextStyle(
-                  //                     fontSize: 21,
-                  //                     fontWeight: FontWeight.bold,
-                  //                     color: Colors.black,
-                  //                   )),
-                  //             ),
-                  //           ],
-                  //         ),
-                  //       ),
-                  //     ),
-                  //     Positioned(
-                  //       top: 200,
-                  //       child: GestureDetector(
-                  //         onTap: (){
-                  //           setState(() {
-                  //             click = "Water";
-                  //             onClick = true;
-                  //             isCollapsed = false;
-                  //           });
-                  //         },
-                  //         child: Row(
-                  //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  //           crossAxisAlignment: CrossAxisAlignment.center,
-                  //           children: [
-                  //             Padding(
-                  //               padding: const EdgeInsets.only(left: 15),
-                  //               child: Icon(Icons.ac_unit,
-                  //                 size: 22,
-                  //               ),
-                  //             ),
-                  //             Padding(
-                  //               padding: const EdgeInsets.only(left: 15),
-                  //               child: Text("Water",
-                  //                   style: TextStyle(
-                  //                     fontSize: 21,
-                  //                     fontWeight: FontWeight.bold,
-                  //                     color: Colors.black,
-                  //                   )),
-                  //             ),
-                  //           ],
-                  //         ),
-                  //       ),
-                  //     ),
-                  //     Positioned(
-                  //       top: 250,
-                  //       child: GestureDetector(
-                  //         onTap: (){
-                  //           setState(() {
-                  //             click = "Rock";
-                  //             onClick = true;
-                  //             isCollapsed = false;
-                  //           });
-                  //         },
-                  //         child: Row(
-                  //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  //           crossAxisAlignment: CrossAxisAlignment.center,
-                  //           children: [
-                  //             Padding(
-                  //               padding: const EdgeInsets.only(left: 15),
-                  //               child: Icon(Icons.radio_button_checked,
-                  //                 size: 22,
-                  //               ),
-                  //             ),
-                  //             Padding(
-                  //               padding: const EdgeInsets.only(left: 15),
-                  //               child: Text("Rock",
-                  //                   style: TextStyle(
-                  //                     fontSize: 21,
-                  //                     fontWeight: FontWeight.bold,
-                  //                     color: Colors.black,
-                  //                   )),
-                  //             ),
-                  //           ],
-                  //         ),
-                  //       ),
-                  //     ),
-                  //     Positioned(
-                  //       top: 300,
-                  //       child: GestureDetector(
-                  //         onTap: (){
-                  //           setState(() {
-                  //             click = "Electric";
-                  //             onClick = true;
-                  //             isCollapsed = false;
-                  //           });
-                  //         },
-                  //         child: Row(
-                  //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  //           crossAxisAlignment: CrossAxisAlignment.center,
-                  //           children: [
-                  //             Padding(
-                  //               padding: const EdgeInsets.only(left: 15),
-                  //               child: Icon(Icons.flash_on,
-                  //                 size: 22,
-                  //               ),
-                  //             ),
-                  //             Padding(
-                  //               padding: const EdgeInsets.only(left: 15),
-                  //               child: Text("Electric",
-                  //                   style: TextStyle(
-                  //                     fontSize: 21,
-                  //                     fontWeight: FontWeight.bold,
-                  //                     color: Colors.black,
-                  //                   )),
-                  //             ),
-                  //           ],
-                  //         ),
-                  //       ),
-                  //     ),
-                  //     Positioned(
-                  //       top: 350,
-                  //       child: GestureDetector(
-                  //         onTap: (){
-                  //           setState(() {
-                  //             isCollapsed = false;
-                  //             Navigator.push(context, MaterialPageRoute(builder: (context){
-                  //               return FavPoke();
-                  //             }));
-                  //           });
-                  //         },
-                  //         child: Row(
-                  //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  //           crossAxisAlignment: CrossAxisAlignment.center,
-                  //           children: [
-                  //             Padding(
-                  //               padding: const EdgeInsets.only(left: 15),
-                  //               child: Icon(Icons.favorite,
-                  //                 size: 22,
-                  //               ),
-                  //             ),
-                  //             Padding(
-                  //               padding: const EdgeInsets.only(left: 15),
-                  //               child: Text("Favorite",
-                  //                   style: TextStyle(
-                  //                     fontSize: 21,
-                  //                     fontWeight: FontWeight.bold,
-                  //                     color: Colors.black,
-                  //                   )),
-                  //             ),
-                  //           ],
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
                 ),
               ),
             ),

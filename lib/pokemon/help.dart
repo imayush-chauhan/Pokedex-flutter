@@ -111,7 +111,7 @@ class _HelpState extends State<Help> {
                             fontSize: 24,
                             color: Colors.black.withOpacity(0.7),
                           ),),
-                        Text("v1.1.20",
+                        Text("v1.0.1",
                           style: TextStyle(
                             fontSize: 22,
                             color: Colors.black.withOpacity(0.7),
@@ -120,7 +120,7 @@ class _HelpState extends State<Help> {
                           onTap: (){
                             showAboutDialog(
                               context: context,
-                              applicationVersion: "1.1.20",
+                              applicationVersion: "1.0.1",
                             );
                           },
                           child: Container(
@@ -172,7 +172,7 @@ class _HelpState extends State<Help> {
                               right: 15
                           ),
                           child: Text(
-                            "If you enjoy using Memory Game or want to know more about it, consider "
+                            "If you enjoy using Pokedex or want to know more about it, consider "
                                 "following us on different social medias. You will get all the latest news "
                                 "regarding to updates or ask any query we will always there to help you.",
                             style: TextStyle(

@@ -1601,7 +1601,7 @@ class _InfoScreenState extends State<InfoScreen> {
                   .of(context)
                   .size
                   .height : 0,
-              duration: Duration(milliseconds: 400),
+              duration: Duration(milliseconds: 600),
               child: WillPopScope(
                 onWillPop: onWillPop,
                 child: Container(

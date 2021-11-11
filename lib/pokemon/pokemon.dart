@@ -797,23 +797,24 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
-                        height: 55,
-                        width: MediaQuery
-                            .of(context)
-                            .size
-                            .width * 0.6,
-                        alignment: Alignment.centerLeft,
-                        child: GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              Data.isGenPoke = false;
-                              Data.isGen = false;
-                              isCollapsed = false;
-                              click = "All";
-                              iconAnimation();
-                            });
-                          },
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            Data.isGenPoke = false;
+                            Data.isGen = false;
+                            isCollapsed = false;
+                            click = "All";
+                            iconAnimation();
+                          });
+                        },
+                        child: Container(
+                          height: 55,
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width * 0.6,
+                          alignment: Alignment.centerLeft,
+                          color: Colors.white,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -838,23 +839,24 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
                           ),
                         ),
                       ),
-                      Container(
-                        height: 40,
-                        width: MediaQuery
-                            .of(context)
-                            .size
-                            .width * 0.6,
-                        alignment: Alignment.centerLeft,
-                        child: GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              Data.isGen = true;
-                              genIndex = 0;
-                              isCollapsed = false;
-                              onClick = false;
-                              iconAnimation();
-                            });
-                          },
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            Data.isGen = true;
+                            genIndex = 0;
+                            isCollapsed = false;
+                            onClick = false;
+                            iconAnimation();
+                          });
+                        },
+                        child: Container(
+                          height: 40,
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width * 0.6,
+                          alignment: Alignment.centerLeft,
+                          color: Colors.white,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -879,23 +881,24 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
                           ),
                         ),
                       ),
-                      Container(
-                        height: 55,
-                        width: MediaQuery
-                            .of(context)
-                            .size
-                            .width * 0.6,
-                        alignment: Alignment.centerLeft,
-                        child: GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              isCollapsed = false;
-                              iconAnimation();
-                              Navigator.push(context, MaterialPageRoute(builder: (context){
-                                return FavPoke();
-                              }));
-                            });
-                          },
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            isCollapsed = false;
+                            iconAnimation();
+                            Navigator.push(context, MaterialPageRoute(builder: (context){
+                              return FavPoke();
+                            }));
+                          });
+                        },
+                        child: Container(
+                          height: 55,
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width * 0.6,
+                          alignment: Alignment.centerLeft,
+                          color: Colors.white,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -920,23 +923,24 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
                           ),
                         ),
                       ),
-                      Container(
-                        height: 55,
-                        width: MediaQuery
-                            .of(context)
-                            .size
-                            .width * 0.6,
-                        alignment: Alignment.centerLeft,
-                        child: GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              isCollapsed = false;
-                              iconAnimation();
-                              Navigator.push(context, MaterialPageRoute(builder: (context){
-                                return Help();
-                              }));
-                            });
-                          },
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            isCollapsed = false;
+                            iconAnimation();
+                            Navigator.push(context, MaterialPageRoute(builder: (context){
+                              return Help();
+                            }));
+                          });
+                        },
+                        child: Container(
+                          height: 55,
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width * 0.6,
+                          alignment: Alignment.centerLeft,
+                          color: Colors.white,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.center,

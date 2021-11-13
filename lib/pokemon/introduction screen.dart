@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:pokidexayu/onlinePoki/pokeData.dart';
 import 'package:pokidexayu/pokemon/pokemon.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 
 class IntroScreen extends StatefulWidget {
   const IntroScreen({Key? key}) : super(key: key);
@@ -13,8 +18,22 @@ class IntroScreen extends StatefulWidget {
 
 class _IntroScreenState extends State<IntroScreen> {
   final introKey = GlobalKey<IntroductionScreenState>();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
 
   bool onPress = false;
+
+  void signInAnonymously() {
+    _auth.signInAnonymously().then((result) {
+      setState(() {
+        final User? user = result.user;
+        Navigator.pushReplacement(context, MaterialPageRoute(
+          builder: (context) {
+            return Pokemon();
+          },));
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -97,13 +116,9 @@ class _IntroScreenState extends State<IntroScreen> {
               Future.delayed(Duration(milliseconds: 350), () {
                 setState(() {
                   onPress = false;
+                  signInAnonymously();
                 });
-                Navigator.pushReplacement(context, PageTransition(
-                  child: Pokemon(),
-                  duration: Duration(milliseconds: 400),
-                  curve: Curves.easeInOut,
-                  type: PageTransitionType.rightToLeft,
-                ));
+
               });
             },
             child: AnimatedContainer(

@@ -20,7 +20,6 @@ class _IntroScreenState extends State<IntroScreen> {
   final introKey = GlobalKey<IntroductionScreenState>();
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-
   bool onPress = false;
 
   void signInAnonymously() {

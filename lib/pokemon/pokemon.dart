@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -932,6 +933,43 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
                               return Help();
                             }));
                           });
+                        },
+                        child: Container(
+                          height: 55,
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width * 0.6,
+                          alignment: Alignment.centerLeft,
+                          color: Colors.white,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(left: 20),
+                                child: Icon(Icons.help_outline),
+                                // child: Icon(Icons.hel,
+                                //   color: Colors.black.withOpacity(0.9),
+                                //   size: 20,
+                                // ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 15),
+                                child: Text("Help",
+                                    style: GoogleFonts.roboto(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.black.withOpacity(0.9),
+                                    )),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          FirebaseAuth.instance.signOut();
                         },
                         child: Container(
                           height: 55,

@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:page_transition/page_transition.dart';
-import 'package:pokidexayu/onlinePoki/pokeData.dart';
+import 'package:pokidexayu/data/data.dart';
 import 'package:pokidexayu/pokemon/favPoke.dart';
 import 'package:pokidexayu/pokemon/help.dart';
 import 'package:pokidexayu/pokemon/infoScreen.dart';
@@ -985,7 +985,7 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.only(left: 20),
-                                child: Icon(Icons.help_outline),
+                                child: Icon(Icons.logout),
                                 // child: Icon(Icons.hel,
                                 //   color: Colors.black.withOpacity(0.9),
                                 //   size: 20,
@@ -993,7 +993,7 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 15),
-                                child: Text("Help",
+                                child: Text("Logout",
                                     style: GoogleFonts.roboto(
                                       fontSize: 20,
                                       fontWeight: FontWeight.w600,

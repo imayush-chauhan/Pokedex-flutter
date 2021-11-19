@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:pokidexayu/onlinePoki/pokeData.dart';
+import 'package:pokidexayu/data/data.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class InfoScreen extends StatefulWidget {
@@ -109,7 +109,7 @@ class _InfoScreenState extends State<InfoScreen> {
       mainColor = Colors.grey.shade200;
       thickColor = Colors.grey.shade400;
     }
-    Future.delayed(Duration(milliseconds: 1000), () {
+    Future.delayed(Duration(milliseconds: 800), () {
       calculator();
     });
   }

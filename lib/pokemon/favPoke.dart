@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:pokidexayu/onlinePoki/pokeData.dart';
+import 'package:pokidexayu/data/data.dart';
 import 'package:pokidexayu/pokemon/infoScreen.dart';
 
 class FavPoke extends StatefulWidget {

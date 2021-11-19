@@ -1421,9 +1421,10 @@ class DataSearch extends SearchDelegate<String> {
     final suggestionList = query.isEmpty ?
     recent : find(query)
         .toList()
-        .isEmpty ? recent : find(query).toList();
+        .isEmpty ? empty : find(query).toList();
 
-    return ListView.builder(
+    return suggestionList != empty ?
+    ListView.builder(
       itemBuilder: (context, index) {
         Data.n = suggestionList[0];
         return ListTile(
@@ -1452,6 +1453,16 @@ class DataSearch extends SearchDelegate<String> {
         );
       },
       itemCount: suggestionList.length,
+    ) : Container(
+      height: MediaQuery.of(context).size.height,
+      width: MediaQuery.of(context).size.width,
+      alignment: Alignment.center,
+      child: Text("No Pokemon Find",
+        style: GoogleFonts.lato(
+        fontSize: 18,
+          fontWeight: FontWeight.w600,
+          color: Colors.black
+      ),),
     );
   }
 }

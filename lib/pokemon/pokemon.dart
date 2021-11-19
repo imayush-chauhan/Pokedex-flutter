@@ -227,6 +227,7 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
                   onTap: () {
                     setState(() {
                       isCollapsed = false;
+                      iconAnimation();
                     });
                     Future.delayed(Duration(milliseconds: 150), () {
                       Navigator.push(context, PageTransition(
@@ -429,6 +430,7 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
                   onTap: () {
                     setState(() {
                       isCollapsed = false;
+                      iconAnimation();
                     });
                     Future.delayed(Duration(milliseconds: 100), () {
                       Navigator.push(context, PageTransition(
@@ -967,43 +969,43 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
                           ),
                         ),
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          FirebaseAuth.instance.signOut();
-                        },
-                        child: Container(
-                          height: 55,
-                          width: MediaQuery
-                              .of(context)
-                              .size
-                              .width * 0.6,
-                          alignment: Alignment.centerLeft,
-                          color: Colors.white,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(left: 20),
-                                child: Icon(Icons.logout),
-                                // child: Icon(Icons.hel,
-                                //   color: Colors.black.withOpacity(0.9),
-                                //   size: 20,
-                                // ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 15),
-                                child: Text("Logout",
-                                    style: GoogleFonts.roboto(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.black.withOpacity(0.9),
-                                    )),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
+                      // GestureDetector(
+                      //   onTap: () {
+                      //     FirebaseAuth.instance.signOut();
+                      //   },
+                      //   child: Container(
+                      //     height: 55,
+                      //     width: MediaQuery
+                      //         .of(context)
+                      //         .size
+                      //         .width * 0.6,
+                      //     alignment: Alignment.centerLeft,
+                      //     color: Colors.white,
+                      //     child: Row(
+                      //       mainAxisAlignment: MainAxisAlignment.start,
+                      //       crossAxisAlignment: CrossAxisAlignment.center,
+                      //       children: [
+                      //         Padding(
+                      //           padding: const EdgeInsets.only(left: 20),
+                      //           child: Icon(Icons.logout),
+                      //           // child: Icon(Icons.hel,
+                      //           //   color: Colors.black.withOpacity(0.9),
+                      //           //   size: 20,
+                      //           // ),
+                      //         ),
+                      //         Padding(
+                      //           padding: const EdgeInsets.only(left: 15),
+                      //           child: Text("Logout",
+                      //               style: GoogleFonts.roboto(
+                      //                 fontSize: 20,
+                      //                 fontWeight: FontWeight.w600,
+                      //                 color: Colors.black.withOpacity(0.9),
+                      //               )),
+                      //         ),
+                      //       ],
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),
@@ -1030,11 +1032,15 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
                 setState(() {
                   Data.isGenPoke = false;
                   genIndex = index;
+                  isCollapsed = false;
+                  iconAnimation();
                 });
               }else{
                 setState(() {
                   Data.isGenPoke = true;
                   genIndex = index;
+                  isCollapsed = false;
+                  iconAnimation();
                 });
               }
               // print(gen[gen["all"][index]]["length"]);
@@ -1124,6 +1130,10 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
                     .width,
                 child: GestureDetector(
                   onTap: () {
+                    setState(() {
+                      isCollapsed = false;
+                      iconAnimation();
+                    });
                     Future.delayed(Duration(milliseconds: 200), () {
                       Navigator.push(context, PageTransition(
                         child: InfoScreen(

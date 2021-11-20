@@ -114,7 +114,7 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
   
   final fireStore = Firebase.initializeApp();
   String url = "";
-  
+
   getData() {
     fireStore.then((value) async {
       FirebaseFirestore.instance
@@ -123,22 +123,27 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
           .get()
           .then((value) {
         setState(() {
-          url = value.get("url");
+          Data.poke = value.get("newData");
+          // url = value.get("url");
+          // url2 = value.get("url2");
         });
-      }).whenComplete(() {
-        getUsersData();
       });
+      //     .whenComplete(() {
+      //   getUsersData();
+      // }).whenComplete(() {
+      //   getUsersData2();
+      // })
     });
   }
 
-  getUsersData() async {
-    var response =
-    await http.get(
-        Uri.parse(url));
-    setState(() {
-      Data.poke = jsonDecode(response.body);
-    });
-  }
+  // getUsersData() async {
+  //   var response =
+  //   await http.get(
+  //       Uri.parse(url));
+  //   setState(() {
+  //     Data.poke = jsonDecode(response.body);
+  //   });
+  // }
 
   iconAnimation() {
     if (isCollapsed == false) {
@@ -969,43 +974,43 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
                           ),
                         ),
                       ),
-                      // GestureDetector(
-                      //   onTap: () {
-                      //     FirebaseAuth.instance.signOut();
-                      //   },
-                      //   child: Container(
-                      //     height: 55,
-                      //     width: MediaQuery
-                      //         .of(context)
-                      //         .size
-                      //         .width * 0.6,
-                      //     alignment: Alignment.centerLeft,
-                      //     color: Colors.white,
-                      //     child: Row(
-                      //       mainAxisAlignment: MainAxisAlignment.start,
-                      //       crossAxisAlignment: CrossAxisAlignment.center,
-                      //       children: [
-                      //         Padding(
-                      //           padding: const EdgeInsets.only(left: 20),
-                      //           child: Icon(Icons.logout),
-                      //           // child: Icon(Icons.hel,
-                      //           //   color: Colors.black.withOpacity(0.9),
-                      //           //   size: 20,
-                      //           // ),
-                      //         ),
-                      //         Padding(
-                      //           padding: const EdgeInsets.only(left: 15),
-                      //           child: Text("Logout",
-                      //               style: GoogleFonts.roboto(
-                      //                 fontSize: 20,
-                      //                 fontWeight: FontWeight.w600,
-                      //                 color: Colors.black.withOpacity(0.9),
-                      //               )),
-                      //         ),
-                      //       ],
-                      //     ),
-                      //   ),
-                      // ),
+                      GestureDetector(
+                        onTap: () {
+                          FirebaseAuth.instance.signOut();
+                        },
+                        child: Container(
+                          height: 55,
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width * 0.6,
+                          alignment: Alignment.centerLeft,
+                          color: Colors.white,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(left: 20),
+                                child: Icon(Icons.logout),
+                                // child: Icon(Icons.hel,
+                                //   color: Colors.black.withOpacity(0.9),
+                                //   size: 20,
+                                // ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 15),
+                                child: Text("Logout",
+                                    style: GoogleFonts.roboto(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.black.withOpacity(0.9),
+                                    )),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),

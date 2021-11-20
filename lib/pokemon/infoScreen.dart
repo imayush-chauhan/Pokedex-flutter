@@ -22,6 +22,7 @@ class _InfoScreenState extends State<InfoScreen> {
   int max = 20;
   bool isType = false;
   String click = "";
+  int total = 0;
 
   Future<bool> onWillPop() async {
     return (await set()) ?? false;
@@ -109,8 +110,20 @@ class _InfoScreenState extends State<InfoScreen> {
       mainColor = Colors.grey.shade200;
       thickColor = Colors.grey.shade400;
     }
+    totalPoints();
     Future.delayed(Duration(milliseconds: 800), () {
       calculator();
+    });
+  }
+
+  totalPoints(){
+    setState(() {
+      total = Data.poke["pokemon"][widget.inx]["special_defense"] +
+          Data.poke["pokemon"][widget.inx]["special_attack"] +
+          Data.poke["pokemon"][widget.inx]["speed"] +
+          Data.poke["pokemon"][widget.inx]["hp"] +
+          Data.poke["pokemon"][widget.inx]["attack"] +
+          Data.poke["pokemon"][widget.inx]["defense"];
     });
   }
 
@@ -1098,8 +1111,7 @@ class _InfoScreenState extends State<InfoScreen> {
                                                 color: Colors.black.withOpacity(
                                                     0.6),
                                               ),),
-                                            Text(Data.poke["pokemon"][widget
-                                                .inx]["total"].toString(),
+                                            Text(total.toString(),
                                               style: TextStyle(
                                                 fontSize: 17,
                                                 fontWeight: FontWeight.w600,

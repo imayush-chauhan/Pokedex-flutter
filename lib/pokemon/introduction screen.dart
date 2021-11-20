@@ -16,6 +16,7 @@ class _IntroScreenState extends State<IntroScreen> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   bool onPress = false;
+  bool loading = false;
 
   void signInAnonymously() {
     _auth.signInAnonymously().then((result) {
@@ -33,7 +34,7 @@ class _IntroScreenState extends State<IntroScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
-        child: Column(
+        child: loading == false ? Column(
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -95,6 +96,7 @@ class _IntroScreenState extends State<IntroScreen> {
                 Future.delayed(Duration(milliseconds: 350), () {
                   setState(() {
                     onPress = false;
+                    loading = true;
                     signInAnonymously();
                   });
 
@@ -124,7 +126,7 @@ class _IntroScreenState extends State<IntroScreen> {
               height: MediaQuery.of(context).size.height*0.1,
             ),
           ],
-        ),
+        ) : CircularProgressIndicator(),
       ),
     );
   }

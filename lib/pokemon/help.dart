@@ -16,7 +16,7 @@ class _HelpState extends State<Help> {
   socialMedias(String s) async{
     fireStore.then((value) async {
       FirebaseFirestore.instance.
-      collection("data").doc("1")
+      collection("data").doc("2")
           .get().then((result){
         if(result.get(s) == ""){
           snackBar("We don't have $s account try Instagram");

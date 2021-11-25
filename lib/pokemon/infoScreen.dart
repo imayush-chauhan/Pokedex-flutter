@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:pokidexayu/data/data.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -34,6 +35,59 @@ class _InfoScreenState extends State<InfoScreen> {
     setState(() {
       isType = false;
     });
+  }
+
+  BannerAd? _ad;
+  bool isLoaded = false;
+
+  bannerAds(){
+    if(Data.showAds == true){
+      print("inside banner ads>>>>>>>>>>>>>>>");
+      _ad = BannerAd(
+        // adUnitId: "ca-app-pub-3028010056599796/1626317951",
+        adUnitId: BannerAd.testAdUnitId,
+        size: AdSize.banner,
+        request: AdRequest(),
+        listener: BannerAdListener(
+            onAdLoaded: (_){
+              setState(() {
+                isLoaded = true;
+                print("isLoaded is true >>>>>>>>>>>>>>>");
+              });
+            },
+            onAdFailedToLoad: (_ad,error){
+              print("Ad failed to load on Error: $error");
+            }
+        ),
+      );
+    }
+  }
+
+  checkForAd(){
+    if(Data.showAds == true){
+      if(isLoaded == true){
+        return Container(
+          child: Center(
+            child: AdWidget(
+              ad: _ad!,
+            ),
+          ),
+          height: 50,
+          width: 320,
+          alignment: Alignment.center,
+        );
+      }else{
+        return Container(
+          height: 20,
+          width: 320,
+        );
+      }
+    }else{
+      return Container(
+        height: 20,
+        width: 320,
+      );
+    }
   }
 
   setFav() async {
@@ -111,9 +165,10 @@ class _InfoScreenState extends State<InfoScreen> {
       thickColor = Colors.grey.shade400;
     }
     totalPoints();
-    Future.delayed(Duration(milliseconds: 800), () {
+    Future.delayed(Duration(milliseconds: 300), () {
       calculator();
     });
+    bannerAds();
   }
 
   totalPoints(){
@@ -1262,7 +1317,7 @@ class _InfoScreenState extends State<InfoScreen> {
                                         ),),),
                                   ],
                                 ),
-                                SizedBox(height: 20,),
+                                checkForAd(),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -1295,7 +1350,10 @@ class _InfoScreenState extends State<InfoScreen> {
                                         },
                                         child: Container(
                                           alignment: Alignment.center,
-                                          height: 170,
+                                          height: MediaQuery
+                                              .of(context)
+                                              .size
+                                              .height * 0.23,
                                           width: MediaQuery
                                               .of(context)
                                               .size
@@ -1406,7 +1464,10 @@ class _InfoScreenState extends State<InfoScreen> {
                                             },
                                             child: Container(
                                               alignment: Alignment.center,
-                                              height: 170,
+                                              height: MediaQuery
+                                                  .of(context)
+                                                  .size
+                                                  .height * 0.23,
                                               width: MediaQuery
                                                   .of(context)
                                                   .size
@@ -1522,7 +1583,10 @@ class _InfoScreenState extends State<InfoScreen> {
                                             },
                                             child: Container(
                                               alignment: Alignment.center,
-                                              height: 170,
+                                              height: MediaQuery
+                                                  .of(context)
+                                                  .size
+                                                  .height * 0.23,
                                               width: MediaQuery
                                                   .of(context)
                                                   .size
@@ -1612,8 +1676,9 @@ class _InfoScreenState extends State<InfoScreen> {
               -MediaQuery
                   .of(context)
                   .size
-                  .height : 0,
-              duration: Duration(milliseconds: 600),
+                  .height * 0.5 : 0,
+              curve: Curves.easeInOut,
+              duration: Duration(milliseconds: 400),
               child: WillPopScope(
                 onWillPop: onWillPop,
                 child: Container(
@@ -1772,10 +1837,7 @@ class _InfoScreenState extends State<InfoScreen> {
                   children: [
                     Positioned(
                       //The Faded line in middle of a card
-                      top: MediaQuery
-                          .of(context)
-                          .size
-                          .height * 0.056,
+                      top: 45,
                       right: 91.7,
                       child: Container(
                         height: 10,
@@ -1798,10 +1860,7 @@ class _InfoScreenState extends State<InfoScreen> {
                     ),
                     Positioned(
                       //Background Faded Circle of image
-                      top: MediaQuery
-                          .of(context)
-                          .size
-                          .height * 0.009,
+                      top: 8,
                       right: 16,
                       child: CircleAvatar(
                         backgroundColor: Colors.black.withOpacity(0.15),
@@ -1810,10 +1869,7 @@ class _InfoScreenState extends State<InfoScreen> {
                     ),
                     Positioned(
                       // image of pokemon
-                      top: MediaQuery
-                          .of(context)
-                          .size
-                          .height * 0.025,
+                      top: 19,
                       right: 27,
                       child: CircleAvatar(
                         child: CachedNetworkImage(
@@ -1828,10 +1884,7 @@ class _InfoScreenState extends State<InfoScreen> {
                     ),
                     Positioned(
                       //name of pokemon
-                      top: MediaQuery
-                          .of(context)
-                          .size
-                          .height * 0.04,
+                      top: 30,
                       left: 15,
                       child: Text(suggestionList[index]["name"],
                           style: GoogleFonts.roboto(
@@ -1841,10 +1894,7 @@ class _InfoScreenState extends State<InfoScreen> {
                     ),
                     Positioned(
                       //type of pokemon
-                      top: MediaQuery
-                          .of(context)
-                          .size
-                          .height * 0.04,
+                      top: 33,
                       left: 140,
                       child: Text(suggestionList[index]["typeofpokemon"][0],
                           style: GoogleFonts.roboto(

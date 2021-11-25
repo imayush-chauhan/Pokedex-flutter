@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
@@ -293,14 +295,8 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
                       children: [
                         Positioned(
                           //The Faded line in middle of a card
-                          top: MediaQuery
-                              .of(context)
-                              .size
-                              .height * 0.056,
-                          left: MediaQuery
-                              .of(context)
-                              .size
-                              .width * 0.1905,
+                          top: 45,
+                          right: 91.7,
                           // right: 91.7,
                           child: Container(
                             height: 10,
@@ -323,15 +319,16 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
                         ),
                         Positioned(
                           //Background Faded Circle of image
-                          top: MediaQuery
-                              .of(context)
-                              .size
-                              .height * 0.009,
-                          left: MediaQuery
-                              .of(context)
-                              .size
-                              .width * 0.69,
-                          // right: 16,
+                          // top: MediaQuery
+                          //     .of(context)
+                          //     .size
+                          //     .height * 0.009,
+                          // left: MediaQuery
+                          //     .of(context)
+                          //     .size
+                          //     .width * 0.69,
+                          top: 8,
+                          right: 16,
                           child: CircleAvatar(
                             backgroundColor: Colors.black.withOpacity(0.15),
                             radius: 38,
@@ -339,14 +336,16 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
                         ),
                         Positioned(
                           // image of pokemon
-                          top: MediaQuery
-                              .of(context)
-                              .size
-                              .height * 0.025,
-                          left: MediaQuery
-                              .of(context)
-                              .size
-                              .width * 0.705,
+                          // top: MediaQuery
+                          //     .of(context)
+                          //     .size
+                          //     .height * 0.025,
+                          // left: MediaQuery
+                          //     .of(context)
+                          //     .size
+                          //     .width * 0.705,
+                          top: 19,
+                          right: 27,
                           // right: 27,
                           child: CircleAvatar(
                             child: CachedNetworkImage(
@@ -362,10 +361,11 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
                         ),
                         Positioned(
                           //name of pokemon
-                          top: MediaQuery
-                              .of(context)
-                              .size
-                              .height * 0.04,
+                          // top: MediaQuery
+                          //     .of(context)
+                          //     .size
+                          //     .height * 0.04,
+                          top: 30,
                           left: 15,
                           child: Text(Data.poke["pokemon"][index]["name"],
                             // style: TextStyle(
@@ -382,10 +382,11 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
                         ),
                         Positioned(
                           //type of pokemon
-                          top: MediaQuery
-                              .of(context)
-                              .size
-                              .height * 0.04,
+                          // top: MediaQuery
+                          //     .of(context)
+                          //     .size
+                          //     .height * 0.04,
+                          top: 33,
                           left: 140,
                           child: Text(
                               Data.poke["pokemon"][index]["typeofpokemon"][0],
@@ -475,10 +476,7 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
                       children: [
                         Positioned(
                           //The Faded line in middle of a card
-                          top: MediaQuery
-                              .of(context)
-                              .size
-                              .height * 0.056,
+                          top: 45,
                           right: 91.7,
                           child: Container(
                             height: 10,
@@ -501,10 +499,7 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
                         ),
                         Positioned(
                           //Background Faded Circle of image
-                          top: MediaQuery
-                              .of(context)
-                              .size
-                              .height * 0.009,
+                          top: 8,
                           right: 16,
                           child: CircleAvatar(
                             backgroundColor: Colors.black.withOpacity(0.15),
@@ -513,10 +508,7 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
                         ),
                         Positioned(
                           // image of pokemon
-                          top: MediaQuery
-                              .of(context)
-                              .size
-                              .height * 0.025,
+                          top: 19,
                           right: 27,
                           child: CircleAvatar(
                             child: CachedNetworkImage(
@@ -531,10 +523,7 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
                         ),
                         Positioned(
                           //name of pokemon
-                          top: MediaQuery
-                              .of(context)
-                              .size
-                              .height * 0.04,
+                          top: 30,
                           left: 15,
                           child: Text(suggestionList[index]["name"],
                               style: GoogleFonts.roboto(
@@ -544,10 +533,7 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
                         ),
                         Positioned(
                           //type of pokemon
-                          top: MediaQuery
-                              .of(context)
-                              .size
-                              .height * 0.04,
+                          top: 33,
                           left: 140,
                           child: Text(suggestionList[index]["typeofpokemon"][0],
                               style: GoogleFonts.roboto(
@@ -700,10 +686,11 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
               backgroundColor: Colors.white,
               appBar: AppBar(
                 title: Text(
-                  "Pokedex",
+                  "InfoDex",
                   style: GoogleFonts.roboto(
                     color: Colors.black,
                     fontWeight: FontWeight.w500,
+                    letterSpacing: 0.8,
                   ),),
                 elevation: 0,
                 centerTitle: true,
@@ -742,6 +729,7 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
                     onPressed: () {
                       setState(() {
                         isCollapsed = false;
+                        iconAnimation();
                       });
                       showSearch(context: context,
                           delegate: DataSearch(file: Data.poke["pokemon"]));
@@ -812,6 +800,8 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
                             Data.isGen = false;
                             isCollapsed = false;
                             click = "All";
+                            onClick = false;
+                            genIndex = 0;
                             iconAnimation();
                           });
                         },
@@ -851,7 +841,7 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
                         onTap: () {
                           setState(() {
                             Data.isGen = true;
-                            genIndex = 0;
+                            // genIndex = 0;
                             isCollapsed = false;
                             onClick = false;
                             iconAnimation();
@@ -894,6 +884,7 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
                           setState(() {
                             isCollapsed = false;
                             iconAnimation();
+                            genIndex = 0;
                             Navigator.push(context, MaterialPageRoute(builder: (context){
                               return FavPoke();
                             }));
@@ -936,6 +927,7 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
                           setState(() {
                             isCollapsed = false;
                             iconAnimation();
+                            genIndex = 0;
                             Navigator.push(context, MaterialPageRoute(builder: (context){
                               return Help();
                             }));
@@ -1223,14 +1215,8 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
                       children: [
                         Positioned(
                           //The Faded line in middle of a card
-                          top: MediaQuery
-                              .of(context)
-                              .size
-                              .height * 0.056,
-                          left: MediaQuery
-                              .of(context)
-                              .size
-                              .width * 0.1905,
+                          top: 45,
+                          right: 91.7,
                           // right: 91.7,
                           child: Container(
                             height: 10,
@@ -1253,14 +1239,8 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
                         ),
                         Positioned(
                           //Background Faded Circle of image
-                          top: MediaQuery
-                              .of(context)
-                              .size
-                              .height * 0.009,
-                          left: MediaQuery
-                              .of(context)
-                              .size
-                              .width * 0.69,
+                          top: 8,
+                          right: 16,
                           // right: 16,
                           child: CircleAvatar(
                             backgroundColor: Colors.black.withOpacity(0.15),
@@ -1269,14 +1249,8 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
                         ),
                         Positioned(
                           // image of pokemon
-                          top: MediaQuery
-                              .of(context)
-                              .size
-                              .height * 0.025,
-                          left: MediaQuery
-                              .of(context)
-                              .size
-                              .width * 0.705,
+                          top: 19,
+                          right: 27,
                           // right: 27,
                           child: CircleAvatar(
                             child: CachedNetworkImage(
@@ -1296,10 +1270,7 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
                         ),
                         Positioned(
                           //name of pokemon
-                          top: MediaQuery
-                              .of(context)
-                              .size
-                              .height * 0.04,
+                          top: 30,
                           left: 15,
                           child: Text(Data.poke["pokemon"][index +
                               gen[gen["all"][genIndex]]["from"] - 1]["name"],
@@ -1317,10 +1288,7 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
                         ),
                         Positioned(
                           //type of pokemon
-                          top: MediaQuery
-                              .of(context)
-                              .size
-                              .height * 0.04,
+                          top: 33,
                           left: 140,
                           child: Text(
                               Data.poke["pokemon"][index +

@@ -14,6 +14,8 @@ class Data {
   static String n = "Loading...";
   static int inx = 0;
 
+  static bool showAds = true;
+
 }
 
 

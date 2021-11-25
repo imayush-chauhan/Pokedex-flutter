@@ -99,7 +99,6 @@ class _IntroScreenState extends State<IntroScreen> {
                     loading = true;
                     signInAnonymously();
                   });
-
                 });
               },
               child: AnimatedContainer(

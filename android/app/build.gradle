@@ -27,7 +27,7 @@ apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 31
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -37,7 +37,7 @@ android {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.blackhole.pokidexayu.pokidexayu"
         minSdkVersion 23
-        targetSdkVersion 30
+        targetSdkVersion 31
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
@@ -58,5 +58,6 @@ flutter {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation platform('com.google.firebase:firebase-bom:29.0.0')
+    implementation 'com.google.android.gms:play-services-ads:20.5.0'
     implementation 'com.google.firebase:firebase-analytics-ktx'
 }

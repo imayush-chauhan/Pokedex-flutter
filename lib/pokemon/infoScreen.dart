@@ -44,11 +44,14 @@ class _InfoScreenState extends State<InfoScreen> {
     if(Data.showAds == true){
       print("inside banner ads>>>>>>>>>>>>>>>");
       _ad = BannerAd(
+        // adUnitId: "ca-app-pub-3028010056599796/1261198552",
         // adUnitId: "ca-app-pub-3028010056599796/1626317951",
         adUnitId: BannerAd.testAdUnitId,
+        // adUnitId: "ca-app-pub-3940256099942544/6300978111",
+        // adUnitId: "ca-app-pub-3028010056599796/1261198552",
         size: AdSize.banner,
         request: AdRequest(),
-        listener: BannerAdListener(
+        listener: AdListener(
             onAdLoaded: (_){
               setState(() {
                 isLoaded = true;
@@ -57,9 +60,15 @@ class _InfoScreenState extends State<InfoScreen> {
             },
             onAdFailedToLoad: (_ad,error){
               print("Ad failed to load on Error: $error");
+              _ad.dispose();
             }
         ),
       );
+      Future.delayed(const Duration(milliseconds: 300), () {
+        setState(() {
+          _ad!.load();
+        });
+      });
     }
   }
 
@@ -87,6 +96,38 @@ class _InfoScreenState extends State<InfoScreen> {
         height: 20,
         width: 320,
       );
+    }
+  }
+
+  InterstitialAd? _in;
+  bool isLoadedIn = false;
+
+  loadInAd(){
+    if(Data.showAds == true){
+      _in = InterstitialAd(
+        // adUnitId: "ca-app-pub-3028010056599796/1200794278",
+        adUnitId: InterstitialAd.testAdUnitId,
+        request: AdRequest(
+          keywords: ["amazon", "games", "land", "collage","toys","learn","coding","food"],
+        ),
+        listener: AdListener(
+            onAdLoaded: (_){
+              setState(() {
+                isLoadedIn = true;
+              });
+            },
+            onAdFailedToLoad: (_ad,error){
+              print("Ad failed to load on Error: $error");
+            }
+        ),
+      );
+      _in!.load();
+    }
+  }
+
+  showInAd(){
+    if(isLoadedIn == true){
+      _in!.show();
     }
   }
 
@@ -262,8 +303,11 @@ class _InfoScreenState extends State<InfoScreen> {
             SafeArea(
               child: GestureDetector(
                 onTap: () {
-                  setState(() {
-                    isType = false;
+                  Future.delayed(Duration(milliseconds: 100), () {
+                    setState(() {
+                      isType = false;
+                      click = "";
+                    });
                   });
                 },
                 child: Container(
@@ -418,12 +462,23 @@ class _InfoScreenState extends State<InfoScreen> {
                                         children: [
                                           GestureDetector(
                                             onTap: () {
-                                              setState(() {
+                                              isType == false ?
+                                              Future.delayed(Duration(milliseconds: 500), () {
+                                                setState(() {
+                                                  click =
+                                                  Data.poke["pokemon"][widget
+                                                      .inx]["typeofpokemon"][0];
+                                                });
+                                              }) : setState(() {
                                                 click =
                                                 Data.poke["pokemon"][widget
                                                     .inx]["typeofpokemon"][0];
-                                                isType = true;
                                               });
+                                                Future.delayed(Duration(milliseconds: 100), () {
+                                                  setState(() {
+                                                    isType = true;
+                                                  });
+                                                });
                                             },
                                             child: Container(
                                               height: 45,
@@ -455,12 +510,23 @@ class _InfoScreenState extends State<InfoScreen> {
                                               ?
                                           GestureDetector(
                                             onTap: () {
-                                              setState(() {
-                                                click =
-                                                Data.poke["pokemon"][widget
-                                                    .inx]["typeofpokemon"][1];
-                                                isType = true;
-                                              });
+                                                isType == false ?
+                                                Future.delayed(Duration(milliseconds: 500), () {
+                                                  setState(() {
+                                                    click =
+                                                    Data.poke["pokemon"][widget
+                                                        .inx]["typeofpokemon"][1];
+                                                  });
+                                                }) : setState(() {
+                                                  click =
+                                                  Data.poke["pokemon"][widget
+                                                      .inx]["typeofpokemon"][1];
+                                                });
+                                                Future.delayed(Duration(milliseconds: 100), () {
+                                                  setState(() {
+                                                    isType = true;
+                                                  });
+                                                });
                                             },
                                             child: Container(
                                               height: 45,
@@ -1227,12 +1293,23 @@ class _InfoScreenState extends State<InfoScreen> {
                                         itemBuilder: (context, index) {
                                           return GestureDetector(
                                             onTap: () {
-                                              setState(() {
+                                              isType == false ?
+                                              Future.delayed(Duration(milliseconds: 500), () {
+                                                setState(() {
+                                                  click =
+                                                  Data.poke["pokemon"][widget
+                                                      .inx]["weaknesses"][index];
+                                                });
+                                              }) : setState(() {
                                                 click =
                                                 Data.poke["pokemon"][widget
                                                     .inx]["weaknesses"][index];
-                                                isType = true;
                                               });
+                                                Future.delayed(Duration(milliseconds: 100), () {
+                                                  setState(() {
+                                                    isType = true;
+                                                  });
+                                                });
                                             },
                                             child: Container(
                                               decoration: BoxDecoration(
@@ -1745,8 +1822,8 @@ class _InfoScreenState extends State<InfoScreen> {
                                 ),),
                             ],
                           ),
-                          isType == false ?
-                          Text("") :
+                          isType == false || click == "" ?
+                          CircularProgressIndicator() :
                           typePokemon(context),
                         ],
                       ),

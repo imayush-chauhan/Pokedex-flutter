@@ -7,8 +7,8 @@ import 'package:pokidexayu/pokemon/pokemon.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
+  MobileAds.instance.initialize();
   await Firebase.initializeApp();
-  await MobileAds.instance.initialize();
   runApp(MyApp());
 }
 

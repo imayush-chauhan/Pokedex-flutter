@@ -7,6 +7,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:http/http.dart' as http;
 import 'package:page_transition/page_transition.dart';
 import 'package:pokidexayu/data/data.dart';
@@ -108,10 +109,45 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
     _controller.addListener(_scrollListener);
     getFav();
     getData();
+    loadInAd();
+    print(">>>>>>>>>>>>>>>>>>>>>>>>");
     controller = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 600),
     );
+  }
+
+  InterstitialAd? _in;
+  bool isLoadedIn = false;
+
+  loadInAd(){
+    if(Data.showAds == true){
+      _in = InterstitialAd(
+        // adUnitId: "ca-app-pub-3028010056599796/1200794278",
+        adUnitId: InterstitialAd.testAdUnitId,
+        request: AdRequest(
+          keywords: ["amazon", "games", "land", "collage","toys","learn","coding","food"],
+        ),
+        listener: AdListener(
+            onAdLoaded: (_){
+              setState(() {
+                isLoadedIn = true;
+                print("hmm true >>>>>>>>");
+              });
+            },
+            onAdFailedToLoad: (_ad,error){
+              print("Ad failed to load on Error: $error");
+            }
+        ),
+      );
+      _in!.load();
+    }
+  }
+
+  showInAd(){
+    if(isLoadedIn == true){
+      _in!.show();
+    }
   }
   
   final fireStore = Firebase.initializeApp();
@@ -235,7 +271,15 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
                     setState(() {
                       isCollapsed = false;
                       iconAnimation();
+                      if(Data.isInAds != 5){
+                        Data.isInAds++;
+                      }else{
+                        Data.isInAds = 0;
+                      }
                     });
+                    if(Data.isInAds == 5){
+                      showInAd();
+                    }
                     Future.delayed(Duration(milliseconds: 150), () {
                       Navigator.push(context, PageTransition(
                         child: InfoScreen(
@@ -955,7 +999,7 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 15),
-                                child: Text("Help",
+                                child: Text("About",
                                     style: GoogleFonts.roboto(
                                       fontSize: 20,
                                       fontWeight: FontWeight.w600,
@@ -966,43 +1010,43 @@ class _PokemonState extends State<Pokemon> with SingleTickerProviderStateMixin {
                           ),
                         ),
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          FirebaseAuth.instance.signOut();
-                        },
-                        child: Container(
-                          height: 55,
-                          width: MediaQuery
-                              .of(context)
-                              .size
-                              .width * 0.6,
-                          alignment: Alignment.centerLeft,
-                          color: Colors.white,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(left: 20),
-                                child: Icon(Icons.logout),
-                                // child: Icon(Icons.hel,
-                                //   color: Colors.black.withOpacity(0.9),
-                                //   size: 20,
-                                // ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 15),
-                                child: Text("Logout",
-                                    style: GoogleFonts.roboto(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.black.withOpacity(0.9),
-                                    )),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
+                      // GestureDetector(
+                      //   onTap: () {
+                      //     FirebaseAuth.instance.signOut();
+                      //   },
+                      //   child: Container(
+                      //     height: 55,
+                      //     width: MediaQuery
+                      //         .of(context)
+                      //         .size
+                      //         .width * 0.6,
+                      //     alignment: Alignment.centerLeft,
+                      //     color: Colors.white,
+                      //     child: Row(
+                      //       mainAxisAlignment: MainAxisAlignment.start,
+                      //       crossAxisAlignment: CrossAxisAlignment.center,
+                      //       children: [
+                      //         Padding(
+                      //           padding: const EdgeInsets.only(left: 20),
+                      //           child: Icon(Icons.logout),
+                      //           // child: Icon(Icons.hel,
+                      //           //   color: Colors.black.withOpacity(0.9),
+                      //           //   size: 20,
+                      //           // ),
+                      //         ),
+                      //         Padding(
+                      //           padding: const EdgeInsets.only(left: 15),
+                      //           child: Text("Logout",
+                      //               style: GoogleFonts.roboto(
+                      //                 fontSize: 20,
+                      //                 fontWeight: FontWeight.w600,
+                      //                 color: Colors.black.withOpacity(0.9),
+                      //               )),
+                      //         ),
+                      //       ],
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),

@@ -2,7 +2,7 @@
     package="com.blackhole.pokidexayu.pokidexayu">
     <uses-permission android:name="android.permission.INTERNET"/>
     <application
-        android:label="pokidexayu"
+        android:label="InfoDex"
         android:icon="@mipmap/ic_launcher">
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"

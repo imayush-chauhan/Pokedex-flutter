@@ -81,8 +81,8 @@ class _InfoScreenState extends State<InfoScreen> {
               ad: _ad!,
             ),
           ),
-          height: 50,
-          width: 320,
+          height: _ad!.size.height.toDouble(),
+          width: _ad!.size.width.toDouble(),
           alignment: Alignment.center,
         );
       }else{
@@ -206,7 +206,7 @@ class _InfoScreenState extends State<InfoScreen> {
       thickColor = Colors.grey.shade400;
     }
     totalPoints();
-    Future.delayed(Duration(milliseconds: 300), () {
+    Future.delayed(Duration(milliseconds: 400), () {
       calculator();
     });
     bannerAds();
@@ -463,7 +463,7 @@ class _InfoScreenState extends State<InfoScreen> {
                                           GestureDetector(
                                             onTap: () {
                                               isType == false ?
-                                              Future.delayed(Duration(milliseconds: 500), () {
+                                              Future.delayed(Duration(milliseconds: 800), () {
                                                 setState(() {
                                                   click =
                                                   Data.poke["pokemon"][widget
@@ -511,7 +511,7 @@ class _InfoScreenState extends State<InfoScreen> {
                                           GestureDetector(
                                             onTap: () {
                                                 isType == false ?
-                                                Future.delayed(Duration(milliseconds: 500), () {
+                                                Future.delayed(Duration(milliseconds: 800), () {
                                                   setState(() {
                                                     click =
                                                     Data.poke["pokemon"][widget
@@ -1294,7 +1294,7 @@ class _InfoScreenState extends State<InfoScreen> {
                                           return GestureDetector(
                                             onTap: () {
                                               isType == false ?
-                                              Future.delayed(Duration(milliseconds: 500), () {
+                                              Future.delayed(Duration(milliseconds: 800), () {
                                                 setState(() {
                                                   click =
                                                   Data.poke["pokemon"][widget

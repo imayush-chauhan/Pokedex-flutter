@@ -10,6 +10,7 @@ class Data {
   static bool isIntro = false;
   static bool isSignIn = false;
   static User? user;
+  static int isInAds = 0;
 
   static String n = "Loading...";
   static int inx = 0;
